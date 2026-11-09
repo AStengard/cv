@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Min Profil - Spatialt CV</title>
+    <!-- Tailwind CSS för styling av kort och typografi -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Grundläggande reset och styling för hela sidan */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Dölj scrollbars, vi navigerar via koordinater */
+            background-color: #f8fafc; /* Mycket ljus blå/grå bakgrund */
+            font-family: 'Inter', sans-serif;
+            color: #0f172a; /* Mörkt blågrå för läsbarhet (Formal) */
+            overscroll-behavior: none;
+        }
+
+        /* Viewporten som agerar "fönster" mot canvasen */
+        #viewport {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            cursor: grab; /* Indikerar att man kan dra runt ytan */
+        }
+        
+        #viewport:active {
+            cursor: grabbing;
+        }
+
+        /* Den stora ytan där allt innehåll ligger */
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5000px;
+            height: 5000px;
+            /* Subtilt rutnät/prickar för att förstärka känslan av en spatial yta */
+            background-size: 40px 40px;
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            transform-origin: 0 0;
+            will-change: transform;
+        }
+
+        /* Styling för "Stationerna" (CV-korten) */
+        .station {
+            position: absolute;
+            /* Centrerar elementet över dess exakta X/Y koordinat */
+            transform: translate(-50%, -50%); 
+            width: 90vw;
+            max-width: 600px;
+            z-index: 10;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 3rem;
+            /* Ungdomlig men formell skugga (Blå ton) */
+            box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .station:hover {
+            box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.25);
+        }
+
+        /* SVG Lager för att rita linjer mellan stationer */
+        #connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none; /* Klick ska gå rakt igenom linjerna */
+        }
+
+        /* Glasmorfism-effekt för navigationsmenyn */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+        }
+
+        /* Stationernas specifika koordinater, utspridda för ett mer dynamiskt utseende */
+        #start { left: 2500px; top: 2500px; }
+        #om-mig { left: 2500px; top: 900px; }
+        #erfarenhet { left: 1000px; top: 1100px; }
+        #utbildning { left: 4200px; top: 1300px; }
+        #kompetenser { left: 4000px; top: 2500px; }
+        #projekt { left: 1100px; top: 4100px; }
+        #kontakt { left: 4000px; top: 3900px; }
+
+        /* Anpassningar för mobila enheter */
+        @media (max-width: 768px) {
+            .station { padding: 2rem; }
+            #nav-menu { gap: 0.5rem; padding: 0.5rem; }
+            .nav-btn { padding: 0.5rem 0.75rem; font-size: 0.875rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fast Navigationsmeny (Ligger över Viewporten) -->
+    <nav class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 nav-glass rounded-full px-2 py-2 flex gap-2 items-center w-max max-w-[95vw] overflow-x-auto" id="nav-menu">
+        <button onclick="navigateTo('start')" id="btn-start" class="nav-btn px-5 py-2.5 rounded-full text-blue-600 font-medium text-sm transition-colors bg-blue-50">Start</button>
+        <button onclick="navigateTo('om-mig')" id="btn-om-mig" class="nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50">Om mig</button>
+        <button onclick="navigateTo('erfarenhet')" id="btn-erfarenhet" class="nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50">Erfarenhet</button>
+        <button onclick="navigateTo('utbildning')" id="btn-utbildning" class="nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50">Utbildning</button>
+        <button onclick="navigateTo('kompetenser')" id="btn-kompetenser" class="nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50">Kompetenser</button>
+        <button onclick="navigateTo('projekt')" id="btn-projekt" class="nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50">Projekt</button>
+        <button onclick="navigateTo('kontakt')" id="btn-kontakt" class="nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50">Kontakt</button>
+    </nav>
+
+    <!-- Huvudfönster (Viewport) -->
+    <div id="viewport">
+        <!-- Canvasen (Oändlig yta) -->
+        <div id="canvas">
+            
+            <!-- SVG för linjer -->
+            <svg id="connections"></svg>
+
+            <!-- Station: Start / Profil -->
+            <section id="start" class="station text-center">
+                <div class="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold text-slate-900 mb-2">Förnamn Efternamn</h1>
+                <h2 class="text-xl text-blue-600 font-medium mb-6">Yrkestitel / Profession</h2>
+                <p class="text-slate-600 leading-relaxed mb-8">
+                    Välkommen till min interaktiva profil. Här har jag samlat min arbetslivserfarenhet, min utbildning och mina senaste projekt. Använd menyn ovan, knapparna nedan eller dra i bakgrunden för att utforska.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                    <button onclick="navigateTo('om-mig')" class="px-5 py-3 bg-blue-50 text-blue-700 rounded-xl font-medium border border-blue-100 hover:bg-blue-100 hover:border-blue-200 transition-all flex items-center justify-center gap-2">
+                        Om mig
+                    </button>
+                    <button onclick="navigateTo('erfarenhet')" class="px-5 py-3 bg-blue-50 text-blue-700 rounded-xl font-medium border border-blue-100 hover:bg-blue-100 hover:border-blue-200 transition-all flex items-center justify-center gap-2">
+                        Arbetserfarenhet
+                    </button>
+                    <button onclick="navigateTo('utbildning')" class="px-5 py-3 bg-blue-50 text-blue-700 rounded-xl font-medium border border-blue-100 hover:bg-blue-100 hover:border-blue-200 transition-all flex items-center justify-center gap-2">
+                        Utbildning
+                    </button>
+                    <button onclick="navigateTo('kompetenser')" class="px-5 py-3 bg-blue-50 text-blue-700 rounded-xl font-medium border border-blue-100 hover:bg-blue-100 hover:border-blue-200 transition-all flex items-center justify-center gap-2">
+                        Kompetenser
+                    </button>
+                    <button onclick="navigateTo('projekt')" class="px-5 py-3 bg-blue-50 text-blue-700 rounded-xl font-medium border border-blue-100 hover:bg-blue-100 hover:border-blue-200 transition-all flex items-center justify-center gap-2">
+                        Projekt
+                    </button>
+                    <button onclick="navigateTo('kontakt')" class="px-5 py-3 bg-blue-600 text-white rounded-xl font-medium shadow-sm hover:shadow-md hover:shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                        Kontakta mig
+                    </button>
+                </div>
+            </section>
+
+            <!-- Station: Om mig -->
+            <section id="om-mig" class="station">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-blue-600 rounded-full"></span>
+                    Om mig
+                </h2>
+                
+                <div class="space-y-4">
+                    <p class="text-slate-600 leading-relaxed">
+                        Här kan du skriva en professionell men personlig sammanfattning av vem du är, din drivkraft och vad du letar efter i din nästa roll. Det ger besökaren en snabb bild av personen bakom erfarenheterna.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Fokusera på dina starkaste karaktärsdrag, hur du arbetar i team och kanske ett kort omnämnande av vad du gillar att göra när du inte arbetar, för att ge en mer komplett bild.
+                    </p>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-center">
+                    <button onclick="navigateTo('start')" class="px-5 py-2 text-sm bg-white text-slate-500 rounded-full font-medium border border-slate-200 hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg>
+                        Tillbaka
+                    </button>
+                </div>
+            </section>
+
+            <!-- Station: Erfarenhet -->
+            <section id="erfarenhet" class="station">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-blue-600 rounded-full"></span>
+                    Arbetserfarenhet
+                </h2>
+                
+                <div class="space-y-2 max-h-[55vh] overflow-y-auto pr-4 pb-4" style="scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent;">
+                    
+                    <!-- Huvudsaklig erfarenhet -->
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp1')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Legal Assistant</h3>
+                                    <p class="text-sm text-blue-600 font-medium">Marshall Group | 2026 – Nuvarande</p>
+                                </div>
+                                <div class="bg-blue-50 p-1.5 rounded-full text-blue-500 group-hover:bg-blue-100 transition-colors">
+                                    <svg id="icon-exp1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp1" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-4 mt-3">
+                                <p class="text-slate-600 text-sm leading-relaxed">Visstidsanställning till och med 31 december 2026. Upprättar och administrerar avtal för organisationens olika affärsområden. Även mindre omfattande avtalsgranskning förekommer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp2')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Uppsatspraktik</h3>
+                                    <p class="text-sm text-blue-600 font-medium">Fondia Legal Services | 2026</p>
+                                </div>
+                                <div class="bg-blue-50 p-1.5 rounded-full text-blue-500 group-hover:bg-blue-100 transition-colors">
+                                    <svg id="icon-exp2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp2" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-4 mt-3">
+                                <p class="text-slate-600 text-sm leading-relaxed">Åtta veckors uppsatspraktik under sista terminen på juristprogrammet, med praktisk erfarenhet av affärsjuridik med särskilt fokus på kontraktsrätt, entreprenadrätt och compliance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp3')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Administratör</h3>
+                                    <p class="text-sm text-blue-600 font-medium">European Spallation Source | 2021</p>
+                                </div>
+                                <div class="bg-blue-50 p-1.5 rounded-full text-blue-500 group-hover:bg-blue-100 transition-colors">
+                                    <svg id="icon-exp3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp3" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-4 mt-3">
+                                <p class="text-slate-600 text-sm leading-relaxed">Deltidsarbete under mina studier i Lund.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp4')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Team Leader</h3>
+                                    <p class="text-sm text-blue-600 font-medium">Godsinlösen Nordic | 2019 – 2020</p>
+                                </div>
+                                <div class="bg-blue-50 p-1.5 rounded-full text-blue-500 group-hover:bg-blue-100 transition-colors">
+                                    <svg id="icon-exp4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp4" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-4 mt-3">
+                                <p class="text-slate-600 text-sm leading-relaxed">Ansvarade för CDON:s outsourcade returlager och eftermarknadsavdelning.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp5')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Team Leader</h3>
+                                    <p class="text-sm text-blue-600 font-medium">CDON | 2019</p>
+                                </div>
+                                <div class="bg-blue-50 p-1.5 rounded-full text-blue-500 group-hover:bg-blue-100 transition-colors">
+                                    <svg id="icon-exp5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp5" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-4 mt-3">
+                                <p class="text-slate-600 text-sm leading-relaxed">Ansvarade för CDON:s reklamationsflöde och rutiner. Hanterade även komplexa kundtjänstärenden samt företagets korrespondens med Allmänna reklamationsnämnden.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp6')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Kundservicemedarbetare</h3>
+                                    <p class="text-sm text-blue-600 font-medium">CDON | 2017 – 2019</p>
+                                </div>
+                                <div class="bg-blue-50 p-1.5 rounded-full text-blue-500 group-hover:bg-blue-100 transition-colors">
+                                    <svg id="icon-exp6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp6" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <div class="bg-slate-50 border border-slate-100 rounded-lg p-4 mt-3">
+                                <p class="text-slate-600 text-sm leading-relaxed">Kundservicemedarbetare på CDON:s reklamationsavdelning.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sommarjobb (Paketerat) -->
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2 mt-4">
+                        <div class="absolute w-3 h-3 bg-slate-400 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp-summer')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-700 group-hover:text-blue-600 transition-colors">Sommarjobb & Extrajobb</h3>
+                                    <p class="text-sm text-slate-500 font-medium">2020 – 2025</p>
+                                </div>
+                                <div class="bg-slate-50 p-1.5 rounded-full text-slate-400 group-hover:bg-slate-200 transition-colors">
+                                    <svg id="icon-exp-summer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp-summer" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <ul class="space-y-2 text-sm text-slate-600 mt-3">
+                                <li class="flex flex-col sm:flex-row sm:justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                                    <span class="font-medium text-slate-800">Kriminalvårdare, Häktet Sollentuna</span> 
+                                    <span class="text-blue-600 font-medium sm:whitespace-nowrap mt-1 sm:mt-0">2024 – 2025</span>
+                                </li>
+                                <li class="flex flex-col sm:flex-row sm:justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                                    <span class="font-medium text-slate-800">Kundservice & Gruppchefsvikarie, Godsinlösen</span> 
+                                    <span class="text-blue-600 font-medium sm:whitespace-nowrap mt-1 sm:mt-0">2020 – 2023</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Ideellt arbete (Paketerat) -->
+                    <div class="border-l-2 border-blue-200 pl-5 relative py-2">
+                        <div class="absolute w-3 h-3 bg-slate-400 rounded-full -left-[7px] top-4"></div>
+                        <button onclick="toggleAccordion('exp-ideal')" class="w-full text-left group focus:outline-none">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-slate-700 group-hover:text-blue-600 transition-colors">Ideellt Arbete</h3>
+                                    <p class="text-sm text-slate-500 font-medium">Förtroendeuppdrag</p>
+                                </div>
+                                <div class="bg-slate-50 p-1.5 rounded-full text-slate-400 group-hover:bg-slate-200 transition-colors">
+                                    <svg id="icon-exp-ideal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform transition-transform duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="content-exp-ideal" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                            <ul class="space-y-2 text-sm text-slate-600 mt-3">
+                                <li class="flex flex-col sm:flex-row sm:justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                                    <span class="font-medium text-slate-800">Styrelseledamot, BRF Slottsgränden</span> 
+                                    <span class="text-blue-600 font-medium sm:whitespace-nowrap mt-1 sm:mt-0">2025 – 2026</span>
+                                </li>
+                                <li class="flex flex-col sm:flex-row sm:justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                                    <span class="font-medium text-slate-800">Sekreterare för Nationsstyrelsen, Smålands nation</span> 
+                                    <span class="text-blue-600 font-medium sm:whitespace-nowrap mt-1 sm:mt-0">2024 – 2026</span>
+                                </li>
+                                <li class="flex flex-col sm:flex-row sm:justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                                    <span class="font-medium text-slate-800">Uthyrningsansvarig, Smålands nation</span> 
+                                    <span class="text-blue-600 font-medium sm:whitespace-nowrap mt-1 sm:mt-0">2023</span>
+                                </li>
+                                <li class="flex flex-col sm:flex-row sm:justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                                    <span class="font-medium text-slate-800">Klubbchef, Östgöta nation</span> 
+                                    <span class="text-blue-600 font-medium sm:whitespace-nowrap mt-1 sm:mt-0">2022</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-center">
+                    <button onclick="navigateTo('start')" class="px-5 py-2 text-sm bg-white text-slate-500 rounded-full font-medium border border-slate-200 hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg>
+                        Tillbaka
+                    </button>
+                </div>
+            </section>
+
+            <!-- Station: Kompetenser -->
+            <section id="kompetenser" class="station">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-blue-600 rounded-full"></span>
+                    Kompetenser & Språk
+                </h2>
+                
+                <div class="mb-8">
+                    <h3 class="font-semibold text-slate-800 mb-4">Tekniska Färdigheter</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-medium">Metodik A</span>
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-medium">System B</span>
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-medium">Programvara C</span>
+                        <span class="px-4 py-1.5 bg-slate-50 text-slate-600 border border-slate-200 rounded-full text-sm font-medium">Verktyg D</span>
+                        <span class="px-4 py-1.5 bg-slate-50 text-slate-600 border border-slate-200 rounded-full text-sm font-medium">Ramverk E</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-slate-800 mb-4">Språkkunskaper</h3>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex justify-between items-center p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                            <span class="font-medium text-slate-800">Svenska</span> 
+                            <span class="text-blue-600 font-medium">Modersmål</span>
+                        </li>
+                        <li class="flex justify-between items-center p-3 bg-slate-50 border border-slate-100 rounded-lg">
+                            <span class="font-medium text-slate-800">Engelska</span> 
+                            <span class="text-slate-500 font-medium">Flytande</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-center">
+                    <button onclick="navigateTo('start')" class="px-5 py-2 text-sm bg-white text-slate-500 rounded-full font-medium border border-slate-200 hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg>
+                        Tillbaka
+                    </button>
+                </div>
+            </section>
+
+            <!-- Station: Projekt -->
+            <section id="projekt" class="station">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-blue-600 rounded-full"></span>
+                    Utvalda Projekt
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                        <h3 class="font-semibold text-slate-800 mb-1">Projekt Alpha</h3>
+                        <p class="text-xs text-blue-600 font-medium mb-2">Ledare / Koordinatör</p>
+                        <p class="text-sm text-slate-600">
+                            Utveckling och implementering av ett nytt system för att effektivisera interna processer.
+                        </p>
+                    </div>
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                        <h3 class="font-semibold text-slate-800 mb-1">Initiativ Beta</h3>
+                        <p class="text-xs text-blue-600 font-medium mb-2">Analytiker</p>
+                        <p class="text-sm text-slate-600">
+                            Marknadsanalys och strategiformering inför lansering av en ny produktlinje på europeisk marknad.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-center">
+                    <button onclick="navigateTo('start')" class="px-5 py-2 text-sm bg-white text-slate-500 rounded-full font-medium border border-slate-200 hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg>
+                        Tillbaka
+                    </button>
+                </div>
+            </section>
+
+            <!-- Station: Kontakt -->
+            <section id="kontakt" class="station text-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Låt oss höras</h2>
+                <p class="text-slate-600 mb-8 max-w-md mx-auto">
+                    Jag är alltid öppen för nya spännande möjligheter och professionella samarbeten. Tveka inte att höra av dig via någon av kanalerna nedan.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="mailto:epost@exempel.se" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium shadow-lg shadow-blue-600/30 hover:bg-blue-700 transition-all w-full sm:w-auto">
+                        Skicka E-post
+                    </a>
+                    <a href="#" class="px-6 py-3 bg-slate-100 text-slate-700 rounded-lg font-medium hover:bg-slate-200 transition-all w-full sm:w-auto">
+                        LinkedIn Profil
+                    </a>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-center">
+                    <button onclick="navigateTo('start')" class="px-5 py-2 text-sm bg-white text-slate-500 rounded-full font-medium border border-slate-200 hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg>
+                        Tillbaka
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const viewport = document.getElementById('viewport');
+        const svgCanvas = document.getElementById('connections');
+        
+        let currentTranslateX = 0;
+        let currentTranslateY = 0;
+        let activeStationId = 'start';
+        let isAnimating = false; // Förhindrar klick/drag under animering
+
+        // Variabler för drag-funktionalitet (Pan)
+        let isDragging = false;
+        let startDragX = 0;
+        let startDragY = 0;
+        let startTranslateX = 0;
+        let startTranslateY = 0;
+
+        // Funktion för att skapa en snirklande/slingrig linje mellan två punkter
+        function createWindingPath(startX, startY, endX, endY) {
+            const dx = endX - startX;
+            const dy = endY - startY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx);
+
+            // Skapa kontrollpunkter för en S-kurva längs linjen
+            const offset = distance * 0.3; // Hur "buktig" kurvan ska vara
+            
+            // Första svängen
+            const cp1x = startX + Math.cos(angle - 0.6) * offset;
+            const cp1y = startY + Math.sin(angle - 0.6) * offset;
+
+            // Andra svängen
+            const cp2x = startX + Math.cos(angle + 0.6) * (distance - offset);
+            const cp2y = startY + Math.sin(angle + 0.6) * (distance - offset);
+
+            return `M ${startX} ${startY} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${endX} ${endY}`;
+        }
+
+        // Rita böjda linjer (paths) mellan start och de andra stationerna
+        function drawConnections() {
+            const stations = ['om-mig', 'erfarenhet', 'utbildning', 'kompetenser', 'projekt', 'kontakt'];
+            const startNode = document.getElementById('start');
+            
+            // Hämta center-koordinater för start
+            const startX = parseInt(window.getComputedStyle(startNode).left);
+            const startY = parseInt(window.getComputedStyle(startNode).top);
+
+            let svgContent = '';
+
+            stations.forEach(id => {
+                const node = document.getElementById(id);
+                if (!node) return; // Säkerhetsspärr: hoppa över om sektionen är borttagen från HTML
+
+                const x = parseInt(window.getComputedStyle(node).left);
+                const y = parseInt(window.getComputedStyle(node).top);
+                
+                const pathData = createWindingPath(startX, startY, x, y);
+            
+            // Rita en stilren, streckad blå slingrande linje
+            svgContent += `
+                <path 
+                    id="path-${id}"
+                    d="${pathData}" 
+                    stroke="#bfdbfe" 
+                    stroke-width="4" 
+                    stroke-dasharray="12 16" 
+                    stroke-linecap="round"
+                    fill="none"
+                />
+            `;
+        });
+
+        svgCanvas.innerHTML = svgContent;
+        
+        // Nytt anrop: Rita ut lekfulla vägskyltar längs linjerna!
+        drawSigns(stations);
+    }
+
+    // Funktion för att rita ut roterade skyltar som följer spårens riktning
+    function drawSigns(stations) {
+        let signsContainer = document.getElementById('signs-container');
+        if (!signsContainer) {
+            signsContainer = document.createElement('div');
+            signsContainer.id = 'signs-container';
+            // Placera bakom stationerna men över linjerna
+            signsContainer.style.position = 'absolute';
+            signsContainer.style.top = '0';
+            signsContainer.style.left = '0';
+            signsContainer.style.width = '100%';
+            signsContainer.style.height = '100%';
+            signsContainer.style.zIndex = '5';
+            canvas.appendChild(signsContainer);
+        }
+        signsContainer.innerHTML = ''; // Rensa gamla skyltar vid omladdning
+
+        const displayNames = {
+            'om-mig': 'Om mig',
+            'erfarenhet': 'Erfarenhet',
+            'utbildning': 'Utbildning',
+            'kompetenser': 'Kompetenser',
+            'projekt': 'Projekt',
+            'kontakt': 'Kontakt'
+        };
+
+        // Olika avstånd (i pixlar från mitten) för att ge ett varierat och lekfullt utseende.
+        // Avstånden är nu fördubblade för att ligga längre ut på vägarna.
+        const customDistances = {
+            'om-mig': 780,
+            'erfarenhet': 950,
+            'utbildning': 840,
+            'kompetenser': 880,
+            'projekt': 1050,
+            'kontakt': 920
+        };
+
+        stations.forEach(id => {
+            const pathElement = document.getElementById(`path-${id}`);
+            if (!pathElement) return;
+
+            const pathLength = pathElement.getTotalLength();
+            // Hämta det specifika avståndet för just denna skylt
+            const signDistance = Math.min(customDistances[id], pathLength * 0.8); 
+            
+            // Hämta punkt för skylten, och en punkt strax efter för att räkna ut vinkeln
+            const p1 = pathElement.getPointAtLength(signDistance);
+            const p2 = pathElement.getPointAtLength(signDistance + 1);
+            
+            const dy = p2.y - p1.y;
+            const dx = p2.x - p1.x;
+            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            
+            // Räkna ut normalen för att placera texten "till höger" om linjen
+            const nx = -dy / dist;
+            const ny = dx / dist;
+            const offset = 25; // Avstånd från linjen i pixlar
+            
+            const textX = p1.x + nx * offset;
+            const textY = p1.y + ny * offset;
+            
+            let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            
+            // Om vinkeln är brant åt vänster hamnar texten upp-och-ner. 
+            // Vi vänder då på vinkeln och flyttar pilen till vänster sida istället!
+            let isFlipped = (angle > 90 || angle < -90);
+            if (isFlipped) {
+                angle += 180;
+            }
+
+            const sign = document.createElement('div');
+            // Ren text utan box, men med lite skugga för läsbarhet
+            sign.className = "absolute z-10 text-blue-600 font-bold text-lg flex items-center gap-2 cursor-pointer transition-all hover:scale-110 hover:text-blue-800 drop-shadow-sm";
+            sign.style.left = `${textX}px`;
+            sign.style.top = `${textY}px`;
+            sign.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+            
+            sign.onclick = () => navigateTo(id);
+            
+            // Om texten är vänd sätter vi pilen först (order-1) och roterar den, annars ligger pilen sist
+            sign.innerHTML = `
+                <span class="${isFlipped ? 'order-2' : 'order-1'}">${displayNames[id]}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-blue-500 ${isFlipped ? 'order-1 rotate-180' : 'order-2'}">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            `;
+            
+            signsContainer.appendChild(sign);
+        });
+    }
+
+    // Navigera längs med linjen
+    function navigateTo(stationId) {
+            if (isAnimating) return;
+            if (activeStationId === stationId) {
+                // Om vi redan är där och t.ex. fönstret storleksförändrats, centrera
+                centerOnElement(stationId);
+                return;
+            }
+
+            updateNavUI(stationId);
+
+            if (activeStationId === 'start') {
+                // Åk från Start -> Station
+                animateAlongPath(stationId, false, () => { activeStationId = stationId; });
+            } else if (stationId === 'start') {
+                // Åk från Station -> Start (baklänges på spåret)
+                animateAlongPath(activeStationId, true, () => { activeStationId = 'start'; });
+            } else {
+                // Åk från Station A -> Start -> Station B
+                animateAlongPath(activeStationId, true, () => {
+                    animateAlongPath(stationId, false, () => {
+                        activeStationId = stationId;
+                    });
+                });
+            }
+        }
+
+        // JS Animering för att följa en specifik SVG Path
+        function animateAlongPath(pathId, reverse, callback) {
+            const pathElement = document.getElementById(`path-${pathId}`);
+            if (!pathElement) return;
+
+            isAnimating = true;
+            const pathLength = pathElement.getTotalLength();
+            const duration = 1200; // 1.2 sekunder per sträcka
+            let startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = (timestamp - startTime) / duration;
+
+                if (progress < 1) {
+                    // Easing (mjuk in- och utbromsning)
+                    const easeProgress = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+                    
+                    const distance = reverse ? pathLength * (1 - easeProgress) : pathLength * easeProgress;
+                    const point = pathElement.getPointAtLength(distance);
+
+                    const windowCenterX = window.innerWidth / 2;
+                    const windowCenterY = window.innerHeight / 2;
+
+                    currentTranslateX = windowCenterX - point.x;
+                    currentTranslateY = windowCenterY - point.y;
+
+                    canvas.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+                    requestAnimationFrame(step);
+                } else {
+                    // Helt framme, säkerställ exakt placering
+                    const distance = reverse ? 0 : pathLength;
+                    const point = pathElement.getPointAtLength(distance);
+                    
+                    currentTranslateX = (window.innerWidth / 2) - point.x;
+                    currentTranslateY = (window.innerHeight / 2) - point.y;
+                    canvas.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+
+                    isAnimating = false;
+                    if (callback) callback();
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Hjälpfunktion för att centrera direkt (används vid resize)
+        function centerOnElement(stationId) {
+            const target = document.getElementById(stationId);
+            const targetX = parseInt(window.getComputedStyle(target).left);
+            const targetY = parseInt(window.getComputedStyle(target).top);
+
+            currentTranslateX = (window.innerWidth / 2) - targetX;
+            currentTranslateY = (window.innerHeight / 2) - targetY;
+            canvas.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+        }
+
+        // Uppdatera utseendet på menyn
+        function updateNavUI(activeId) {
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                // Återställ standardklasser
+                btn.className = 'nav-btn px-5 py-2.5 rounded-full text-slate-500 font-medium text-sm transition-colors hover:text-blue-600 hover:bg-blue-50/50';
+            });
+            
+            // Highlight aktiv knapp
+            const activeBtn = document.getElementById(`btn-${activeId}`);
+            if(activeBtn) {
+                activeBtn.className = 'nav-btn px-5 py-2.5 rounded-full text-blue-600 font-medium text-sm transition-colors bg-blue-50';
+            }
+        }
+
+        // --- Logik för Dragspel (Accordion) på Erfarenhet --- //
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (content.classList.contains('max-h-0')) {
+                // Öppna
+                content.classList.remove('max-h-0', 'opacity-0');
+                content.classList.add('max-h-[500px]', 'opacity-100');
+                icon.classList.add('rotate-180');
+            } else {
+                // Stäng
+                content.classList.add('max-h-0', 'opacity-0');
+                content.classList.remove('max-h-[500px]', 'opacity-100');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // --- Logik för Drag & Pan --- //
+        
+        function onDragStart(e) {
+            if (isAnimating) return; // Tillåt inte drag under kamerapanorering
+            isDragging = true;
+            
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            startDragX = clientX;
+            startDragY = clientY;
+            startTranslateX = currentTranslateX;
+            startTranslateY = currentTranslateY;
+        }
+
+        function onDragMove(e) {
+            if (!isDragging) return;
+            e.preventDefault(); // Förhindra scroll på mobil
+            
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            const dx = clientX - startDragX;
+            const dy = clientY - startDragY;
+            
+            currentTranslateX = startTranslateX + dx;
+            currentTranslateY = startTranslateY + dy;
+            
+            canvas.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+        }
+
+        function onDragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+        }
+
+        // Event listeners för mus
+        viewport.addEventListener('mousedown', onDragStart);
+        window.addEventListener('mousemove', onDragMove);
+        window.addEventListener('mouseup', onDragEnd);
+
+        // Event listeners för Touch (Mobiler)
+        viewport.addEventListener('touchstart', onDragStart, { passive: false });
+        window.addEventListener('touchmove', onDragMove, { passive: false });
+        window.addEventListener('touchend', onDragEnd);
+
+        // Om fönstret ändrar storlek (t.ex. roterar telefon), centrera om aktuell vy
+        window.addEventListener('resize', () => {
+            if (isAnimating) return;
+            setTimeout(() => {
+                centerOnElement(activeStationId);
+            }, 100);
+        });
+
+        // Initiering
+        window.onload = () => {
+            drawConnections();
+            centerOnElement('start');
+        };
+    </script>
+</body>
+</html>
