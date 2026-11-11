@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Digitalt CV - Alfred Stengard</title>
     <!-- Favicon / Ikon för fliken -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2315233E'><path d='M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-1.127 18h-2.127v-5.698c0-1.464-.523-2.463-1.835-2.463-1.002 0-1.597.674-1.861 1.326-.096.233-.12.558-.12.884v5.951h-2.126s.028-15.352 0-16.942h2.126v2.4c.282-.435.787-1.055 1.913-1.055 1.397 0 2.443.913 2.443 2.873v5.724zM6.924 7.234h-.014c-.714 0-1.176-.492-1.176-1.107 0-.63.477-1.108 1.205-1.108.728 0 1.176.478 1.19 1.108 0 .615-.477 1.107-1.205 1.107zm-1.077 10.766h2.155v-11.458h-2.155v11.458z'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📓</text></svg>">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Högklassig typografi: Plus Jakarta Sans (UI/Brödtext), Newsreader (Redaktionella rubriker), JetBrains Mono (Metadata/Årtal) -->
@@ -344,6 +344,7 @@
     <nav class="fixed left-6 top-1/2 transform -translate-y-1/2 z-50 hud-surface rounded-xl p-2 flex flex-col gap-1" id="nav-menu" aria-label="Huvudnavigering">
         <div class="px-3 pt-1.5 pb-2 mb-1 border-b border-stone-200/80 hidden md:flex items-center justify-between gap-4">
             <span class="font-mono text-[10px] uppercase tracking-widest text-stone-400 font-semibold">Index</span>
+            <span class="font-mono text-[10px] text-stone-400">§ CV</span>
         </div>
 
         <button onclick="navigateToDirect('start')" id="btn-start" class="nav-btn group px-3.5 py-2 rounded-lg text-nordic-navy font-semibold text-xs transition-all bg-stone-200/60 text-left flex items-center gap-2.5">
@@ -448,9 +449,10 @@
                 </h2>
                 
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-stone-100 border border-stone-200/80 mb-4">
+                    <span class="w-1.5 h-1.5 rounded-full bg-nordic-navy"></span>
                     <p class="text-[11px] font-bold tracking-widest uppercase text-nordic-navy/80">
-                        <span class="lang-sv">Välkommen till mitt interaktiva CV</span>
-                        <span class="lang-en">Welcome to my interactive CV</span>
+                        <span class="lang-sv">Välkommen till mitt interaktiva CV!</span>
+                        <span class="lang-en">Welcome to my interactive CV!</span>
                     </p>
                 </div>
                 
@@ -547,8 +549,8 @@
                             <span class="lang-sv">Introduktion</span><span class="lang-en">Introduction</span>
                         </h3>
                         <p class="text-stone-700 leading-relaxed text-[14.5px]">
-                            <span class="lang-sv">Jag heter Alfred, är 29 år och kommer från Lund. Jag är i grunden jurist och har även läst ekonomi, vilket har gett mig ett stort och genuint intresse för affärsjuridik. Som person är jag en pålitlig problemlösare som är nyfiken på min omgivning och som alltid vill lära mig mer.</span>
-                            <span class="lang-en">My name is Alfred, I am 29 years old and originally from Lund. I hold a Master of Laws and have also studied business administration and economics. Combined, this has given me a strong and genuine interest in business law. As a person, I am a reliable problem solver who is curious about the world around me and always eager to learn more.</span>
+                            <span class="lang-sv">Jag heter Alfred, är 29 år och kommer ursprungligen från Lund. Jag är i grunden jurist och har även läst ekonomi, vilket har gett mig ett stort och genuint intresse för affärsjuridik. Som person är jag en pålitlig problemlösare som är nyfiken på min omgivning och som alltid vill lära mig mer.</span>
+                            <span class="lang-en">My name is Alfred, I am 29 years old and originally from Lund in southern Sweden. I hold a Master of Laws and have also studied business administration and economics. Combined, this has given me a strong and genuine interest in business law. As a person, I am a reliable problem solver who is curious about the world around me and always eager to learn more.</span>
                         </p>
                     </div>
 
@@ -612,8 +614,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-nordic-navy/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span class="lang-sv">Klicka på en roll för mer information</span>
-                            <span class="lang-en">Click a role for more information</span>
+                            <span class="lang-sv">Klicka på en roll för detaljer</span>
+                            <span class="lang-en">Click a role for details</span>
                         </span>
                         <button onclick="toggleAllAccordions()" id="toggle-all-exp-btn" class="px-2.5 py-1 rounded-md bg-[#F8F6F1] hover:bg-stone-200/60 border border-stone-200/90 text-xs text-nordic-navy font-semibold transition-colors">
                             Expandera alla
@@ -631,7 +633,7 @@
                                 <h4 class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors">Legal Assistant</h4>
                                 <p class="text-xs font-mono text-nordic-navy font-medium mt-0.5">
                                     Marshall Group <span class="text-stone-400">|</span>
-                                    <span class="lang-sv">2026 – Nuvarande</span><span class="lang-en">2026 – Present</span>
+                                    <span class="lang-sv">2026 till Nuvarande</span><span class="lang-en">2026 to Present</span>
                                 </p>
                             </div>
                             <svg id="icon-exp1" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400 mt-1 transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -640,8 +642,8 @@
                         </div>
                         <div id="content-exp1" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
-                                <span class="lang-sv">Visstidsanställning till och med den 31 december 2026. I rollen arbetar jag med att upprätta, granska och administrera kommersiella avtal för koncernens olika affärsområden i en internationell miljö. Arbetet omfattar även löpande hantering och administration av bolagets immateriella rättigheter och varumärkesportfölj i nära samarbete med juristteamet och övriga delar av verksamheten.</span>
-                                <span class="lang-en">Fixed term employment until December 31, 2026. In this role, I draft, review, and administer commercial contracts across the group's various business areas in an international setting. The work also encompasses ongoing management and administration of the company's intellectual property rights and trademark portfolio in close collaboration with the legal team and other parts of the business.</span>
+                                <span class="lang-sv">Visstidsanställning till och med den 31 december 2026. I rollen arbetar jag med att upprätta och administrera kommersiella avtal för koncernens olika affärsområden i en internationell miljö. Även viss avtalsgranskning förekommer. Arbetet omfattar även löpande hantering och administration av bolagets immateriella rättigheter och varumärkesportfölj i nära samarbete med juristteamet.</span>
+                                <span class="lang-en">Fixed term employment until December 31, 2026. In this role, I draft and administer commercial contracts across the group's various business areas in an international setting. Occasionally assisting with contract review. The work also encompasses ongoing management and administration of the company's intellectual property rights and trademark portfolio in close collaboration with the legal team.</span>
                             </p>
                         </div>
                     </div>
@@ -662,8 +664,8 @@
                         </div>
                         <div id="content-exp2" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
-                                <span class="lang-sv">Åtta veckors uppsatspraktik under sista terminen på juristprogrammet som gav en bred och praktisk inblick i rollen som affärsjurist. Under praktiken bistod jag byråns jurister med rättsutredningar, avtalsgranskning och löpande klientrådgivning i varierande ärenden, med särskilt fokus på kommersiell kontraktsrätt, entreprenadrätt och compliance.</span>
-                                <span class="lang-en">An eight week thesis internship during the final semester of the law programme that provided broad practical insight into the role of a business lawyer. During the internship, I assisted the firm's lawyers with legal research, contract review, and ongoing client advisory across a variety of matters, with a particular focus on commercial contract law, construction law, and compliance.</span>
+                                <span class="lang-sv">Åtta veckors uppsatspraktik under sista terminen på juristprogrammet som gav en bred och praktisk inblick i rollen som affärsjurist. Under praktiken bistod jag byråns jurister med bland annat rättsutredningar och avtalsgranskning i varierande ärenden, med särskilt fokus på kommersiell kontraktsrätt, entreprenadrätt och compliance.</span>
+                                <span class="lang-en">An eight week thesis internship at a law firm during the final semester of the law programme that provided broad practical insight into the role of a business lawyer. During the internship, I assisted the firm's lawyers with legal research, contract review, and other tasks across a variety of matters, with a particular focus on commercial contract law, construction law, and compliance.</span>
                             </p>
                         </div>
                     </div>
@@ -684,8 +686,8 @@
                         </div>
                         <div id="content-exp3" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
-                                <span class="lang-sv">Deltidsarbete vid sidan av mina studier i Lund på en utpräglat internationell forskningsanläggning med engelska som arbetsspråk. Jag arbetade med informationshantering och dokumentstrukturering i samband med ett omfattande internt systembyte samt ansvarade för administration och kvalitetssäkring av mötesprotokoll och intern dokumentation.</span>
-                                <span class="lang-en">Part time position alongside my studies in Lund at a distinctly international research facility with English as the working language. I worked with information management and document structuring during a comprehensive internal systems transition, and was responsible for the administration and quality assurance of meeting minutes and internal documentation.</span>
+                                <span class="lang-sv">Deltidsarbete vid sidan av mina studier i Lund på en internationell forskningsanläggning med engelska som arbetsspråk. Jag arbetade med informationshantering och dokumentstrukturering i samband med ett omfattande internt systembyte samt ansvarade för administration av mötesprotokoll.</span>
+                                <span class="lang-en">Part time position alongside my studies in Lund at an international research facility with English as the working language. I worked with information management and document structuring during a comprehensive internal systems transition, and was responsible for the administration of meeting minutes.</span>
                             </p>
                         </div>
                     </div>
@@ -696,7 +698,7 @@
                         <div class="flex justify-between items-start gap-4">
                             <div>
                                 <h4 class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors">Team Leader</h4>
-                                <p class="text-xs font-mono text-nordic-navy font-medium mt-0.5">Godsinlösen Nordic <span class="text-stone-400">|</span> 2019 – 2020</p>
+                                <p class="text-xs font-mono text-nordic-navy font-medium mt-0.5">Godsinlösen Nordic <span class="text-stone-400">|</span> 2019 till 2020</p>
                             </div>
                             <svg id="icon-exp4" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400 mt-1 transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -705,7 +707,7 @@
                         <div id="content-exp4" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
                                 <span class="lang-sv">När mitt tidigare team på CDON outsourcades till Godsinlösen Nordic fick jag förtroendet att leda övergången och ansvara för den fortsatta driften av eftermarknadsavdelningen. Utöver det löpande personal och driftansvaret drev jag arbetet med att från grunden bygga upp och strukturera ett helt nytt returlager för hantering av returnerade produkter, med stort fokus på effektiva flöden och tydliga arbetsrutiner.</span>
-                                <span class="lang-en">When my previous team at CDON was outsourced to Godsinlösen Nordic, I was entrusted with leading the transition and managing the continued operations of the aftermarket department. Beyond ongoing staff and operational responsibilities, I led the work of building and structuring an entirely new returns warehouse from the ground up, with a strong focus on efficient workflows and clear operating procedures.</span>
+                                <span class="lang-en">When my previous team at CDON was outsourced to Godsinlösen Nordic, I was entrusted with leading the transition and managing the continued operations of the aftersales department. Beyond ongoing staff and operational responsibilities, I led the work of building and structuring an entirely new returns warehouse from the ground up, with a strong focus on efficient workflows and clear operating procedures.</span>
                             </p>
                         </div>
                     </div>
@@ -725,7 +727,7 @@
                         <div id="content-exp5" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
                                 <span class="lang-sv">Som Team Leader hade jag det övergripande ansvaret för att leda och utveckla företagets reklamationsflöde, arbetsrutiner och dagliga drift. I rollen ingick även att hantera mer komplexa och eskalerade kundärenden med koppling till konsumenträtt samt att driva bolagets skriftliga korrespondens och yttranden i tvister hos Allmänna reklamationsnämnden.</span>
-                                <span class="lang-en">As Team Leader, I held overall responsibility for leading and developing the company's claims workflow, operating procedures, and daily operations. The role also included handling complex and escalated customer matters related to consumer law, as well as managing the company's written correspondence and submissions in disputes before the National Board for Consumer Disputes (ARN).</span>
+                                <span class="lang-en">As Team Leader, I held overall responsibility for leading and developing the company's claims workflow, operating procedures, and daily operations. The role also included handling complex and escalated customer matters, as well as managing the company's written correspondence and submissions in disputes before the National Board for Consumer Disputes (ARN).</span>
                             </p>
                         </div>
                     </div>
@@ -738,7 +740,7 @@
                                 <h4 class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors">
                                     <span class="lang-sv">Kundservicemedarbetare</span><span class="lang-en">Customer Service Representative</span>
                                 </h4>
-                                <p class="text-xs font-mono text-nordic-navy font-medium mt-0.5">CDON <span class="text-stone-400">|</span> 2017 – 2019</p>
+                                <p class="text-xs font-mono text-nordic-navy font-medium mt-0.5">CDON <span class="text-stone-400">|</span> 2017 till 2019</p>
                             </div>
                             <svg id="icon-exp6" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400 mt-1 transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -746,12 +748,12 @@
                         </div>
                         <div id="content-exp6" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
-                                <span class="lang-sv">Arbetade på företagets reklamationsavdelning med löpande kundkontakt, utredning av garanti och reklamationsärenden samt samordning med externa handlare och leverantörer.</span>
-                                <span class="lang-en">Worked in the company's claims department handling ongoing customer communication, investigating warranty and claims cases, and coordinating with external merchants and suppliers.</span>
+                                <span class="lang-sv">Arbetade på företagets reklamationsavdelning med löpande kundkontakt, utredning av garanti och reklamationsärenden samt samordning med externa verkstäder och leverantörer.</span>
+                                <span class="lang-en">Worked in the company's claims department handling ongoing customer communication, investigating warranty and claims cases, and coordinating with external workshops and suppliers.</span>
                             </p>
                         </div>
                     </div>
-                                       
+                    
                     <!-- Diskret avgränsare mellan huvudsakliga anställningar och övriga uppdrag -->
                     <div class="py-2 relative flex items-center justify-center">
                         <div class="w-full border-t border-stone-200/90"></div>
