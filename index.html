@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Digitalt CV - Alfred Stengard</title>
+    <title>Digital CV - Alfred Stengard</title>
     <!-- Favicon / Ikon för fliken -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📓</text></svg>">
     <!-- Tailwind CSS -->
@@ -138,7 +138,7 @@
 
         /* Anpassad bredd för mer innehållsrika stationer */
         #start {
-            width: min(86vw, 640px);
+            width: min(90vw, 800px);
         }
         #erfarenhet {
             width: min(86vw, 880px);
@@ -152,9 +152,9 @@
 
         /* Stationernas exakta koordinater på canvasen */
         #start { left: 2500px; top: 2500px; }
-        #om-mig { left: 2500px; top: 900px; }
-        #erfarenhet { left: 1000px; top: 1100px; }
-        #utbildning { left: 4200px; top: 1300px; }
+        #om-mig { left: 1000px; top: 1100px; }
+        #erfarenhet { left: 3200px; top: 1100px; }
+        #utbildning { left: 900px; top: 2600px; }
         #kompetenser { left: 4000px; top: 2500px; }
         #projekt { left: 1100px; top: 4100px; }
         #kontakt { left: 4000px; top: 3900px; }
@@ -401,11 +401,11 @@
         <span class="text-stone-300">|</span>
         <!-- Språkväljare i bottenraden -->
         <div class="inline-flex items-center bg-stone-100/90 p-0.5 rounded-full border border-stone-200/80">
-            <button type="button" onclick="setLanguage('sv')" class="lang-toggle-sv flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold transition-all bg-white text-nordic-navy shadow-sm">
+            <button type="button" onclick="setLanguage('sv')" class="lang-toggle-sv flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium transition-all text-stone-500 hover:text-nordic-navy">
                 <svg class="w-3.5 h-2.5 rounded-[1px] shrink-0" viewBox="0 0 16 10"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC00"/><rect y="4" width="16" height="2" fill="#FECC00"/></svg>
                 <span>SV</span>
             </button>
-            <button type="button" onclick="setLanguage('en')" class="lang-toggle-en flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium transition-all text-stone-500 hover:text-nordic-navy">
+            <button type="button" onclick="setLanguage('en')" class="lang-toggle-en flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold transition-all bg-white text-nordic-navy shadow-sm">
                 <svg class="w-3.5 h-2.5 rounded-[1px] shrink-0" viewBox="0 0 60 30"><clipPath id="uk-hud"><path d="M0,0 v30 h60 v-30 z"/></clipPath><g clip-path="url(#uk-hud)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2.5"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
                 <span>EN</span>
             </button>
@@ -427,41 +427,44 @@
             <!-- Station: Start / Profil -->
             <section id="start" class="station active-station text-center">
                 <!-- Språkväljare uppe till höger på startkortet -->
-                <div class="absolute top-5 right-6 z-20 inline-flex items-center bg-[#F8F6F1] p-1 rounded-lg border border-[#E5E0D5]">
-                    <button type="button" onclick="setLanguage('sv')" class="lang-toggle-sv flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all bg-white text-nordic-navy shadow-sm">
+                <div class="absolute top-6 right-7 z-20 inline-flex items-center bg-[#F8F6F1] p-1 rounded-lg border border-[#E5E0D5]">
+                    <button type="button" onclick="setLanguage('sv')" class="lang-toggle-sv flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all text-stone-500 hover:text-nordic-navy">
                         <svg class="w-4 h-3 rounded-[2px] shadow-sm shrink-0" viewBox="0 0 16 10"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC00"/><rect y="4" width="16" height="2" fill="#FECC00"/></svg>
                         <span>SV</span>
                     </button>
-                    <button type="button" onclick="setLanguage('en')" class="lang-toggle-en flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all text-stone-500 hover:text-nordic-navy">
+                    <button type="button" onclick="setLanguage('en')" class="lang-toggle-en flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all bg-white text-nordic-navy shadow-sm">
                         <svg class="w-4 h-3 rounded-[2px] shadow-sm shrink-0" viewBox="0 0 60 30"><clipPath id="uk-start"><path d="M0,0 v30 h60 v-30 z"/></clipPath><g clip-path="url(#uk-start)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2.5"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
                         <span>EN</span>
                     </button>
                 </div>
 
-                <div class="w-16 h-16 bg-nordic-navy/5 border border-nordic-navy/15 text-nordic-navy rounded-full flex items-center justify-center mx-auto mb-5">
-                    <span class="font-serif text-xl font-medium tracking-tight">AS</span>
+                <!-- Profilbild -->
+                <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-6 rounded-full overflow-hidden border-2 border-nordic-navy/15 shadow-md bg-stone-100">
+                    <img id="profile-img" src="image_c2521f.png" alt="Alfred Stengard" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('profile-fallback').style.display='flex';">
+                    <div id="profile-fallback" class="hidden inset-0 w-full h-full flex-col items-center justify-center bg-nordic-navy/5 text-nordic-navy p-2 text-center">
+                        <span class="font-serif text-3xl font-medium">AS</span>
+                    </div>
                 </div>
                 
-                <h1 class="font-serif text-4xl sm:text-5xl font-medium text-stone-900 tracking-tight mb-2">Alfred Stengard</h1>
-                <h2 class="text-lg text-nordic-navy font-bold tracking-wide mb-4">
+                <h1 class="font-serif text-4xl sm:text-6xl font-medium text-stone-900 tracking-tight mb-2.5">Alfred Stengard</h1>
+                <h2 class="text-xl text-nordic-navy font-bold tracking-wide mb-5">
                     <span class="lang-sv">Jurist</span>
                     <span class="lang-en">Master of Laws (LL.M.)</span>
                 </h2>
                 
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-stone-100 border border-stone-200/80 mb-4">
-                    <span class="w-1.5 h-1.5 rounded-full bg-nordic-navy"></span>
-                    <p class="text-[11px] font-bold tracking-widest uppercase text-nordic-navy/80">
-                        <span class="lang-sv">Välkommen till mitt interaktiva CV!</span>
-                        <span class="lang-en">Welcome to my interactive CV!</span>
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-stone-100 border border-stone-200/80 mb-5">
+                    <p class="text-xs font-bold tracking-widest uppercase text-nordic-navy/80">
+                        <span class="lang-sv">Välkommen till mitt interaktiva CV</span>
+                        <span class="lang-en">Welcome to my interactive CV</span>
                     </p>
                 </div>
                 
-                <p class="text-stone-600 text-[15px] leading-relaxed max-w-lg mx-auto mb-7">
+                <p class="text-stone-600 text-base leading-relaxed max-w-xl mx-auto mb-8">
                     <span class="lang-sv">Här har jag samlat min arbetslivserfarenhet, min utbildning och mina senaste projekt. Använd menyn till vänster, knapparna nedan eller dra i bakgrunden för att utforska.</span>
                     <span class="lang-en">Here I have gathered my work experience, my education, and my latest projects. Use the menu on the left, the buttons below, or drag the background to explore.</span>
                 </p>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
                     <button onclick="navigateToDirect('om-mig')" class="group px-4 py-3 bg-[#F8F6F1] text-stone-800 rounded-lg font-medium text-sm border border-[#E5E0D5] hover:bg-white hover:border-nordic-navy transition-all flex items-center justify-between">
                         <span class="flex items-center gap-2.5">
                             <span class="font-mono text-xs text-stone-400 group-hover:text-nordic-navy">01</span>
@@ -549,8 +552,8 @@
                             <span class="lang-sv">Introduktion</span><span class="lang-en">Introduction</span>
                         </h3>
                         <p class="text-stone-700 leading-relaxed text-[14.5px]">
-                            <span class="lang-sv">Jag heter Alfred, är 29 år och kommer ursprungligen från Lund. Jag är i grunden jurist och har även läst ekonomi, vilket har gett mig ett stort och genuint intresse för affärsjuridik. Som person är jag en pålitlig problemlösare som är nyfiken på min omgivning och som alltid vill lära mig mer.</span>
-                            <span class="lang-en">My name is Alfred, I am 29 years old and originally from Lund in southern Sweden. I hold a Master of Laws and have also studied business administration and economics. Combined, this has given me a strong and genuine interest in business law. As a person, I am a reliable problem solver who is curious about the world around me and always eager to learn more.</span>
+                            <span class="lang-sv">Jag heter Alfred, är 29 år och kommer ursprungligen från Lund. Jag är i grunden jurist, har även studerat ekonomi och har ett stort och genuint intresse för affärsjuridik och teknologi. Som person är jag en pålitlig problemlösare som är nyfiken på min omgivning och som alltid vill lära mig mer.</span>
+                            <span class="lang-en">My name is Alfred, I am 29 years old and originally from Lund in southern Sweden. I hold a Master of Laws degree, have also studied economics, and have a strong and genuine interest in business law and technology. As a person, I am a reliable problem solver who is curious about the world around me and always eager to learn more.</span>
                         </p>
                     </div>
 
@@ -618,7 +621,7 @@
                             <span class="lang-en">Click a role for details</span>
                         </span>
                         <button onclick="toggleAllAccordions()" id="toggle-all-exp-btn" class="px-2.5 py-1 rounded-md bg-[#F8F6F1] hover:bg-stone-200/60 border border-stone-200/90 text-xs text-nordic-navy font-semibold transition-colors">
-                            Expandera alla
+                            Expand all
                         </button>
                     </div>
                 </div>
@@ -706,8 +709,8 @@
                         </div>
                         <div id="content-exp4" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
                             <p class="text-stone-600 text-sm leading-relaxed mt-2 pb-1">
-                                <span class="lang-sv">När mitt tidigare team på CDON outsourcades till Godsinlösen Nordic fick jag förtroendet att leda övergången och ansvara för den fortsatta driften av eftermarknadsavdelningen. Utöver det löpande personal och driftansvaret drev jag arbetet med att från grunden bygga upp och strukturera ett helt nytt returlager för hantering av returnerade produkter, med stort fokus på effektiva flöden och tydliga arbetsrutiner.</span>
-                                <span class="lang-en">When my previous team at CDON was outsourced to Godsinlösen Nordic, I was entrusted with leading the transition and managing the continued operations of the aftersales department. Beyond ongoing staff and operational responsibilities, I led the work of building and structuring an entirely new returns warehouse from the ground up, with a strong focus on efficient workflows and clear operating procedures.</span>
+                                <span class="lang-sv">När mitt teams arbetsuppgifter på CDON outsourcades till Godsinlösen Nordic fick jag förtroendet att leda övergången och ansvara för den fortsatta driften av eftermarknadsavdelningen. Utöver det löpande personal och driftansvaret drev jag arbetet med att från grunden bygga upp och strukturera ett helt nytt returlager för hantering av returnerade produkter, med stort fokus på effektiva flöden och tydliga arbetsrutiner.</span>
+                                <span class="lang-en">When the duties of my team at CDON was outsourced to Godsinlösen Nordic, I was entrusted with leading the transition and managing the continued operations of the aftersales department. Beyond ongoing staff and operational responsibilities, I led the work of building and structuring an entirely new returns warehouse from the ground up, with a strong focus on efficient workflows and clear operating procedures.</span>
                             </p>
                         </div>
                     </div>
@@ -912,10 +915,66 @@
                             <span class="lang-sv">UPPSALA UNIVERSITET</span><span class="lang-en">UPPSALA UNIVERSITY</span>
                             <span class="text-stone-400">|</span> 2022 – 2026
                         </p>
-                        <p class="text-stone-600 text-sm leading-relaxed">
+                        <p class="text-stone-600 text-sm leading-relaxed mb-3">
                             <span class="lang-sv">Juristexamen. Fördjupningskurser med högsta betyg i internationell skiljedomsrätt och kommersiell kontraktsrätt. Examensarbete inom entreprenadrätt.</span>
                             <span class="lang-en">Master of Laws degree (LL.M.). Advanced courses with top grades in International Arbitration and Commercial Contract Law. Master's thesis in Construction Law.</span>
                         </p>
+
+                        <!-- Expandable Course List: Juristprogrammet -->
+                        <div id="item-edu-law" class="group cursor-pointer py-1" onclick="toggleAccordion('edu-law')">
+                            <div class="flex justify-between items-center gap-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-nordic-navy group-hover:text-stone-900 transition-colors">
+                                    <span class="lang-sv">Visa genomförda kurser</span><span class="lang-en">Show completed courses</span>
+                                </span>
+                                <svg id="icon-edu-law" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400 transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-edu-law" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
+                            <ul class="text-sm text-stone-600 space-y-2 mt-2 pb-2 pl-2 border-l-2 border-stone-200">
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Terminskurs 1:</strong> Grundläggande juridisk metod, statsrätt och konstitutionell EU-rätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Term Course 1:</strong> Basic Legal Method, Constitutional Law and Constitutional EU Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Terminskurs 2:</strong> Civilrätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Term Course 2:</strong> Private Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Terminskurs 3:</strong> Civilrätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Term Course 3:</strong> Private Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Terminskurs 4:</strong> Straffrätt och processrätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Term Course 4:</strong> Criminal Law and Procedural Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Terminskurs 5:</strong> Associationsrätt och skatterätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Term Course 5:</strong> Corporation Law and Tax Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Terminskurs 6:</strong> Förvaltningsrätt och internationell rätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Term Course 6:</strong> Administrative Law and International Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Fördjupning:</strong> Internationell skiljedomsrätt</span> <span class="shrink-0 whitespace-nowrap">15,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Advanced Course:</strong> International Commercial Arbitration</span> <span class="shrink-0 whitespace-nowrap">15.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Fördjupning:</strong> Rättshistoria och allmän rättslära</span> <span class="shrink-0 whitespace-nowrap">15,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Advanced Course:</strong> Legal History and Jurisprudence</span> <span class="shrink-0 whitespace-nowrap">15.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Fördjupning:</strong> Kommersiell kontraktsrätt</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Advanced Course:</strong> Commercial Contract Law</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Examensarbete</strong></span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Thesis for the degree Master of Laws</strong></span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <!-- Tidigare utbildning -->
@@ -928,19 +987,62 @@
                             <span class="lang-sv">LUNDS UNIVERSITET</span><span class="lang-en">LUND UNIVERSITY</span>
                             <span class="text-stone-400">|</span> 2020 – 2022
                         </p>
-                        <p class="text-stone-600 text-sm leading-relaxed">
-                            <span class="lang-sv">Inriktning företagsekonomi. Studier motsvarande närmare fem av sex terminer avklarade.</span>
-                            <span class="lang-en">Specialization in Business Administration. Completed studies corresponding to nearly five out of six semesters.</span>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-3">
+                            <span class="lang-sv">Inriktning företagsekonomi. Studier motsvarande närmare fem av sex terminer avklarade (144 hp), varav en termin utgörs av tillgodoräknade kurser från juristprogrammet.</span>
+                            <span class="lang-en">Specialization in Business Administration. Completed studies corresponding to nearly five out of six semesters (144 credits), of which one semester consists of credited courses from the law programme.</span>
                         </p>
-                    </div>
 
-                    <!-- Gymnasieutbildning -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3 class="font-bold text-stone-900 text-base uppercase tracking-wide">
-                            <span class="lang-sv">Samhällsvetenskapsprogrammet</span><span class="lang-en">Social Science Programme</span>
-                        </h3>
-                        <p class="text-xs font-mono text-nordic-navy font-medium mt-0.5">POLHEMSKOLAN LUND <span class="text-stone-400">|</span> 2013 – 2016</p>
+                         <!-- Expandable Course List: Ekonomieprogrammet -->
+                         <div id="item-edu-econ" class="group cursor-pointer py-1" onclick="toggleAccordion('edu-econ')">
+                            <div class="flex justify-between items-center gap-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-nordic-navy group-hover:text-stone-900 transition-colors">
+                                    <span class="lang-sv">Visa genomförda kurser</span><span class="lang-en">Show completed courses</span>
+                                </span>
+                                <svg id="icon-edu-econ" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400 transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-edu-econ" class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
+                            <ul class="text-sm text-stone-600 space-y-2 mt-2 pb-2 pl-2 border-l-2 border-stone-200">
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Företagsekonomi:</strong> Grundkurs</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Business Administration:</strong> Introductory Course</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Nationalekonomi:</strong> Grundkurs</span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Economics:</strong> Introductory Course</span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Statistik:</strong> Grundkurs 1</span> <span class="shrink-0 whitespace-nowrap">15,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Statistics:</strong> Basic Course 1</span> <span class="shrink-0 whitespace-nowrap">15.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Handelsrätt:</strong> Juridisk översiktskurs (JÖK)</span> <span class="shrink-0 whitespace-nowrap">15,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Business Law:</strong> Introductory Course in Business Law</span> <span class="shrink-0 whitespace-nowrap">15.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Företagsekonomi:</strong> Strategisk marknadsföring</span> <span class="shrink-0 whitespace-nowrap">6,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Business Administration:</strong> Strategic Marketing</span> <span class="shrink-0 whitespace-nowrap">6.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Företagsekonomi:</strong> Strategisk organisering</span> <span class="shrink-0 whitespace-nowrap">6,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Business Administration:</strong> Strategic Organizing</span> <span class="shrink-0 whitespace-nowrap">6.0 credits</span></div>
+                                </li>
+                                <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Företagsekonomi:</strong> Finansiell planering och analys</span> <span class="shrink-0 whitespace-nowrap">6,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Business Administration:</strong> Financial Planning and Analysis</span> <span class="shrink-0 whitespace-nowrap">6.0 credits</span></div>
+                                </li>
+                                 <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Företagsekonomi:</strong> Metod och integration</span> <span class="shrink-0 whitespace-nowrap">6,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Business Administration:</strong> Method and Integration</span> <span class="shrink-0 whitespace-nowrap">6.0 credits</span></div>
+                                </li>
+                                 <li>
+                                    <div class="lang-sv flex justify-between gap-4"><span><strong>Tillgodoräknad kurs</strong></span> <span class="shrink-0 whitespace-nowrap">30,0 hp</span></div>
+                                    <div class="lang-en flex justify-between gap-4"><span><strong>Credited Course</strong></span> <span class="shrink-0 whitespace-nowrap">30.0 credits</span></div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>
@@ -1266,7 +1368,7 @@
                                 </div>
                             </a>
                             <button onclick="copyToClipboard('alfred.stengard@outlook.com', 'copy-email-label')" class="px-2.5 py-1.5 rounded-md bg-white border border-stone-200/90 hover:border-nordic-navy text-xs font-medium text-stone-600 hover:text-nordic-navy transition-all shrink-0">
-                                <span id="copy-email-label">Kopiera</span>
+                                <span id="copy-email-label">Copy</span>
                             </button>
                         </div>
                         
@@ -1284,7 +1386,7 @@
                                 </div>
                             </a>
                             <button onclick="copyToClipboard('+46 73 721 21 63', 'copy-phone-label')" class="px-2.5 py-1.5 rounded-md bg-white border border-stone-200/90 hover:border-nordic-navy text-xs font-medium text-stone-600 hover:text-nordic-navy transition-all shrink-0">
-                                <span id="copy-phone-label">Kopiera</span>
+                                <span id="copy-phone-label">Copy</span>
                             </button>
                         </div>
 
@@ -1325,7 +1427,7 @@
         const svgCanvas = document.getElementById('connections');
         const recenterBtn = document.getElementById('recenter-btn');
         
-        let currentLang = 'sv';
+        let currentLang = 'en';
 
         const stationOrder = ['start', 'om-mig', 'erfarenhet', 'utbildning', 'kompetenser', 'projekt', 'kontakt'];
         const stationNames = {
@@ -1352,9 +1454,9 @@
         // Cachade koordinater för stationer för 60fps utan layout thrashing
         const stationCoords = {
             'start': { x: 2500, y: 2500 },
-            'om-mig': { x: 2500, y: 900 },
-            'erfarenhet': { x: 1000, y: 1100 },
-            'utbildning': { x: 4200, y: 1300 },
+            'om-mig': { x: 1000, y: 1100 },
+            'erfarenhet': { x: 3200, y: 1100 },
+            'utbildning': { x: 900, y: 2600 },
             'kompetenser': { x: 4000, y: 2500 },
             'projekt': { x: 1100, y: 4100 },
             'kontakt': { x: 4000, y: 3900 }
@@ -1813,7 +1915,7 @@
         function toggleAllAccordions() {
             const accordions = document.querySelectorAll('.exp-accordion');
             const anyClosed = Array.from(accordions).some(el => !el.style.maxHeight || el.style.maxHeight === '0px');
-            const ids = ['exp1', 'exp2', 'exp3', 'exp4', 'exp5', 'exp6', 'exp-summer', 'exp-volunteer'];
+            const ids = ['exp1', 'exp2', 'exp3', 'exp4', 'exp5', 'exp6', 'exp-summer', 'exp-volunteer', 'edu-law', 'edu-econ'];
 
             ids.forEach(id => {
                 const content = document.getElementById(`content-${id}`);
