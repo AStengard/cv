@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>M&A Legal Due Diligence Dashboard - Project Titan Acquisition</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --critical: #ef4444;
+      --high: #f97316;
+      --med: #eab308;
+      --low: #10b981;
+      --accent: #38bdf8;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 30px;
+    }
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-conf {
+      background: #451a03;
+      color: #fb923c;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: 1px solid #7c2d12;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .metric-val {
+      font-size: 32px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .val-critical { color: var(--critical); }
+    .val-high { color: var(--high); }
+    .val-med { color: var(--med); }
+    .val-low { color: var(--low); }
+    .val-total { color: var(--accent); }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 30px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    th {
+      background: #1e293b;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+    tr:hover { background: #243248; }
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .tag-critical { background: #450a0a; color: #f87171; border: 1px solid #991b1b; }
+    .tag-high { background: #431407; color: #fb923c; border: 1px solid #9a3412; }
+    .tag-med { background: #422006; color: #facc15; border: 1px solid #854d0e; }
+    .tag-low { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+    
+    details {
+      background: #0f172a;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+    }
+    summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .quote-box {
+      font-family: monospace;
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-top: 8px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1 style="margin: 0; font-size: 26px;">⚖️ M&A Legal Due Diligence Matrix</h1>
+      <p style="margin: 6px 0 0 0; color: var(--text-muted);">Deal: <strong>Project Titan Acquisition</strong> | Target: <strong>Target Technologies Corp.</strong></p>
+    </div>
+    <div class="badge-conf">ATTORNEY-CLIENT PRIVILEGED</div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric-card">
+      <div style="color: var(--text-muted); font-size: 13px;">Contracts Audited</div>
+      <div class="metric-val val-total">4</div>
+    </div>
+    <div class="metric-card">
+      <div style="color: var(--text-muted); font-size: 13px;">🔴 Critical Risks (CPs)</div>
+      <div class="metric-val val-critical">2</div>
+    </div>
+    <div class="metric-card">
+      <div style="color: var(--text-muted); font-size: 13px;">🟠 High Risks</div>
+      <div class="metric-val val-high">1</div>
+    </div>
+    <div class="metric-card">
+      <div style="color: var(--text-muted); font-size: 13px;">🟡 Medium Risks</div>
+      <div class="metric-val val-med">0</div>
+    </div>
+    <div class="metric-card">
+      <div style="color: var(--text-muted); font-size: 13px;">🟢 Clean / Low Risks</div>
+      <div class="metric-val val-low">1</div>
+    </div>
+  </div>
+
+  <div class="section-title">🚨 Mandatory Closing Conditions Precedent (CP)</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 80px;">CP Code</th>
+        <th style="width: 250px;">Contract & Counterparty</th>
+        <th>Pre-Closing Action Item</th>
+        <th>Failure Risk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+                  <td><strong>CP-1</strong></td>
+                  <td><strong>MASTER SERVICES AGREEMENT</strong><br><small style="color: var(--text-muted);">Acme Global Industries Inc., Target Technologies Corp</small></td>
+                  <td>MANDATORY: (1) Include as a closing Condition Precedent (CP) to obtain written counterparty consent; (2) List on Seller Disclosure Schedule 3.4 (Consents & Approvals); (3) Formulate pre-signing outreach strategy.</td>
+                  <td style="color: var(--critical);">CRITICAL CLOSING BLOCKER: Transaction explicitly triggers Change of Control consent.</td>
+                </tr><tr>
+                  <td><strong>CP-2</strong></td>
+                  <td><strong>ENTERPRISE SOFTWARE-AS-A-SERVICE (SAAS) SUBSCRIPTION...</strong><br><small style="color: var(--text-muted);">Globex Cloud Solutions LLC, Target Technologies Corp</small></td>
+                  <td>Obtain formal waiver/consent prior to Closing or secure closing condition in Acquisition Agreement.</td>
+                  <td style="color: var(--critical);">Change of Control requires counterparty consent.</td>
+                </tr><tr>
+                  <td><strong>CP-3</strong></td>
+                  <td><strong>EXCLUSIVE COMMERCIAL DISTRIBUTION AND CHANNEL AGREEMENT</strong><br><small style="color: var(--text-muted);">Apex Logistics & Supply International Inc. ("Distributor"), Target Technologies Corp</small></td>
+                  <td>DEAL STRUCTURING PRIORITY: (1) Mandatory closing waiver or contract amendment carving out Buyer and Buyer's pre-existing affiliates; (2) Alternatively, isolate Target in a remote corporate subsidiary ring-fence.</td>
+                  <td style="color: var(--critical);">Buyer & Affiliates contaminated by post-closing non-compete.</td>
+                </tr><tr>
+                  <td><strong>CP-4</strong></td>
+                  <td><strong>EXCLUSIVE COMMERCIAL DISTRIBUTION AND CHANNEL AGREEMENT</strong><br><small style="color: var(--text-muted);">Apex Logistics & Supply International Inc. ("Distributor"), Target Technologies Corp</small></td>
+                  <td>Obtain formal waiver/consent prior to Closing or secure closing condition in Acquisition Agreement.</td>
+                  <td style="color: var(--critical);">Change of Control requires counterparty consent.</td>
+                </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">📋 Comprehensive Red Flag Due Diligence Matrix</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 200px;">Contract</th>
+        <th style="width: 170px;">Clause Type</th>
+        <th style="width: 100px;">Risk Level</th>
+        <th style="width: 100px;">Consent Req?</th>
+        <th>Legal Analysis & Prescribed Deal Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><strong>MASTER SERVICES AGREEMENT</strong><br><small style="color: var(--text-muted);">Acme Global Industries Inc. / New York</small></td>
+          <td>Change of Control (CoC)</td>
+          <td><span class="tag tag-critical">CRITICAL</span></td>
+          <td><strong style="color: var(--critical);">YES</strong></td>
+          <td>
+            <strong>Analysis:</strong> CRITICAL CLOSING BLOCKER: Transaction explicitly triggers Change of Control consent. Counterparty holds sole discretion to withhold consent and retains unilateral termination rights or clawback remedies upon closing without prior consent.<br>
+            <div style="margin-top: 4px;"><strong>Action:</strong> MANDATORY: (1) Include as a closing Condition Precedent (CP) to obtain written counterparty consent; (2) List on Seller Disclosure Schedule 3.4 (Consents & Approvals); (3) Formulate pre-signing outreach strategy.</div>
+            <details>
+              <summary>View Verbatim Contract Excerpt</summary>
+              <div class="quote-box">"SECTION 12. ASSIGNMENT AND CHANGE OF CONTROL 12.1 General Prohibition. Neither party may assign, delegate, or otherwise transfer this Agreement or any of its rights or obligations hereunder, whether voluntarily, involuntarily, by operation of law, or otherwise, without the prior written consent of the other party. 12.2 Change of Control of Provider. Any Change of Control of Provider shall be deemed an assignment requiring Client's prior written consent, which consent may be granted or withheld in Client's sole and absolute discretion. For purposes of this Agreement, "Change of Control" means: (a) any consolidation, amalgamation, or merger of Provider with or into any other entity; (b) any transaction or series of related transactions in which more than fifty percent (50%) of Provider's voting securities are transferred to an unrelated third party; or (c) any sale, lease, exchange, or other transfer of all or substantially all of Provider's assets. 12.3 Remedies for Unauthorized Change of Control. If Provider undergoes a Change of Control without obtaining Client's prior written consent at least thirty (30) days prior to the effective date of such Change of Control: (i) such transaction shall constitute an incurable material breach of this Agreement; (ii) Client shall have the right to immediately terminate this Agreement and all active SOWs upon written notice; and (iii) Provider shall immediately refund to Client all unearned prepaid fees and transition all work product without additional fee."</div>
+            </details>
+          </td>
+        </tr><tr>
+          <td><strong>ENTERPRISE SOFTWARE-AS-A-SERVICE (SAAS) SUBSCRIPTION...</strong><br><small style="color: var(--text-muted);">Globex Cloud Solutions LLC / California</small></td>
+          <td>Change of Control (CoC)</td>
+          <td><span class="tag tag-high">HIGH</span></td>
+          <td><strong style="color: var(--critical);">YES</strong></td>
+          <td>
+            <strong>Analysis:</strong> Change of Control requires counterparty consent. While not explicitly subject to sole discretion, failure to obtain consent creates risk of contract repudiation or post-closing renegotiation.<br>
+            <div style="margin-top: 4px;"><strong>Action:</strong> Obtain formal waiver/consent prior to Closing or secure closing condition in Acquisition Agreement.</div>
+            <details>
+              <summary>View Verbatim Contract Excerpt</summary>
+              <div class="quote-box">"14. ASSIGNMENT Neither party may assign, sublicense, transfer, or encumber this Agreement, or any of its rights or obligations hereunder, by operation of law, change of control, or otherwise, without the prior written consent of the non-assigning party; provided, however, that such consent shall not be unreasonably withheld, conditioned, or delayed. Any attempted assignment in violation of this Section 14 shall be null and void ab initio."</div>
+            </details>
+          </td>
+        </tr><tr>
+          <td><strong>EXCLUSIVE COMMERCIAL DISTRIBUTION AND CHANNEL AGREEMENT</strong><br><small style="color: var(--text-muted);">Apex Logistics & Supply International Inc. ("Distributor") / Delaware</small></td>
+          <td>Restrictive Covenant / Non-Compete</td>
+          <td><span class="tag tag-critical">CRITICAL</span></td>
+          <td><span style="color: var(--text-muted);">NO</span></td>
+          <td>
+            <strong>Analysis:</strong> HIGH-SEVERITY CONTAMINATION RISK: Restrictive covenant / non-compete explicitly binds Target's 'current or future Affiliates and parent entities'. Following closing, Buyer and its existing subsidiaries would become 'Affiliates' and could be legally prohibited from distributing competing products in the Territory!<br>
+            <div style="margin-top: 4px;"><strong>Action:</strong> DEAL STRUCTURING PRIORITY: (1) Mandatory closing waiver or contract amendment carving out Buyer and Buyer's pre-existing affiliates; (2) Alternatively, isolate Target in a remote corporate subsidiary ring-fence.</div>
+            <details>
+              <summary>View Verbatim Contract Excerpt</summary>
+              <div class="quote-box">"SECTION 4. EXCLUSIVITY AND TERRITORY 4.1 Exclusive Appointment. Company hereby appoints Distributor as its exclusive commercial distributor in the territory of the United States and Canada ("Territory") for all Company telemetry hardware and related accessories. 4.2 Negative Covenant. Company agrees that neither Company, nor any of its current or future Affiliates, parent entities, subsidiaries, or successors-in-interest, shall directly or indirectly market, sell, promote, or distribute competing hardware products in the Territory during the Term and for a period of twenty-four (24) months following any expiration or termination of this Agreement ("Post-Termination Restrictive Period")."</div>
+            </details>
+          </td>
+        </tr><tr>
+          <td><strong>EXCLUSIVE COMMERCIAL DISTRIBUTION AND CHANNEL AGREEMENT</strong><br><small style="color: var(--text-muted);">Apex Logistics & Supply International Inc. ("Distributor") / Delaware</small></td>
+          <td>Termination for Convenience</td>
+          <td><span class="tag tag-high">HIGH</span></td>
+          <td><span style="color: var(--text-muted);">NO</span></td>
+          <td>
+            <strong>Analysis:</strong> Unilateral termination for convenience by counterparty on short notice (30 days). Presents revenue vulnerability post-acquisition: counterparty can walk away immediately upon learning of the deal.<br>
+            <div style="margin-top: 4px;"><strong>Action:</strong> Financial DD coordination: Assess customer concentration and valuation haircut if counterparty terminates; consider retention conversations as part of pre-closing integration.</div>
+            <details>
+              <summary>View Verbatim Contract Excerpt</summary>
+              <div class="quote-box">"SECTION 9. TERMINATION FOR CONVENIENCE Notwithstanding anything to the contrary herein, Distributor may terminate this Agreement without cause and for its sole convenience at any time upon thirty (30) days prior written notice to Company. Company shall have no right of termination for convenience."</div>
+            </details>
+          </td>
+        </tr><tr>
+          <td><strong>EXCLUSIVE COMMERCIAL DISTRIBUTION AND CHANNEL AGREEMENT</strong><br><small style="color: var(--text-muted);">Apex Logistics & Supply International Inc. ("Distributor") / Delaware</small></td>
+          <td>Change of Control (CoC)</td>
+          <td><span class="tag tag-high">HIGH</span></td>
+          <td><strong style="color: var(--critical);">YES</strong></td>
+          <td>
+            <strong>Analysis:</strong> Change of Control requires counterparty consent. While not explicitly subject to sole discretion, failure to obtain consent creates risk of contract repudiation or post-closing renegotiation.<br>
+            <div style="margin-top: 4px;"><strong>Action:</strong> Obtain formal waiver/consent prior to Closing or secure closing condition in Acquisition Agreement.</div>
+            <details>
+              <summary>View Verbatim Contract Excerpt</summary>
+              <div class="quote-box">"SECTION 15. ASSIGNMENT AND TRANSFERS 15.1 Assignment by Company. This Agreement is personal to Company. Company may not assign, transfer, pledge, or delegate this Agreement, or any portion thereof, without the prior express written consent of Distributor. 15.2 Change in Ownership. Any direct or indirect transfer of fifty percent (50%) or more of the voting control or beneficial ownership of Company shall be deemed an assignment under this Section 15. In the event of such transfer without Distributor's written approval, Distributor may immediately declare this Agreement terminated and enforce the non-compete covenant set forth in Section 4.2 against both Company and any acquiring entity or affiliate."</div>
+            </details>
+          </td>
+        </tr><tr>
+          <td><strong>STRATEGIC TECHNOLOGY COOPERATION AND OEM AGREEMENT</strong><br><small style="color: var(--text-muted);">Inventure Technologies SE / England and Wales</small></td>
+          <td>Assignment & Transfer</td>
+          <td><span class="tag tag-low">LOW</span></td>
+          <td><span style="color: var(--text-muted);">NO</span></td>
+          <td>
+            <strong>Analysis:</strong> Standard M&A successor carve-out. Allows assignment without consent in connection with a merger or asset/stock acquisition. Check competitor exclusions (Exhibit D).<br>
+            <div style="margin-top: 4px;"><strong>Action:</strong> Confirm Buyer is not a listed competitor on Exhibit D; diarize post-closing notice within 15 business days.</div>
+            <details>
+              <summary>View Verbatim Contract Excerpt</summary>
+              <div class="quote-box">"ARTICLE 16. ASSIGNMENT AND SUCCESSORS 16.1 General. Except as expressly set forth in Section 16.2 below, neither party may assign or transfer this Agreement without the prior written consent of the other party (such consent not to be unreasonably withheld, conditioned, or delayed). 16.2 Permitted M&A Carve-Out. Notwithstanding Section 16.1, either party may assign or transfer this Agreement, or any of its rights and obligations hereunder, without the consent of the other party: (a) to an Affiliate of the assigning party; or (b) in connection with a merger, reorganization, acquisition, or sale of all or substantially all of its assets or voting securities, provided that: (i) the surviving or acquiring entity agrees in writing to be bound by all terms and conditions of this Agreement; (ii) the assignee is not a direct commercial competitor of Inventure listed on Exhibit D; and (iii) written notice of such assignment is delivered to the non-assigning party within fifteen (15) business days following the closing of such transaction."</div>
+            </details>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</body>
+</html>
