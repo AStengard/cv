@@ -86,7 +86,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 5000px;
+            width: 5800px;
             height: 5000px;
             /* Subtilt arkitektoniskt pricknät och sekundärt koordinatnät */
             background-color: #F6F4EF;
@@ -157,7 +157,7 @@
         }
 
         #kompetenser {
-            width: min(88vw, 740px);
+            width: min(88vw, 860px);
         }
 
         #kontakt {
@@ -181,12 +181,12 @@
         }
 
         #utbildning {
-            left: 900px;
+            left: 450px;
             top: 2600px;
         }
 
         #kompetenser {
-            left: 4000px;
+            left: 4650px;
             top: 2500px;
         }
 
@@ -457,7 +457,7 @@
             class="nav-btn group px-3.5 py-2 rounded-lg text-stone-600 font-medium text-xs transition-all hover:text-nordic-navy hover:bg-stone-200/40 text-left flex items-center gap-2.5">
             <span
                 class="nav-index font-mono text-[10px] text-stone-400 group-hover:text-nordic-navy transition-colors">04</span>
-            <span class="lang-sv">Kompetenser</span><span class="lang-en">Skills</span>
+            <span class="lang-sv">Kompetenser & Språk</span><span class="lang-en">Skills & Languages</span>
         </button>
         <button onclick="navigateToDirect('projekt')" id="btn-projekt"
             class="nav-btn group px-3.5 py-2 rounded-lg text-stone-600 font-medium text-xs transition-all hover:text-nordic-navy hover:bg-stone-200/40 text-left flex items-center gap-2.5">
@@ -679,7 +679,8 @@
                         <span class="flex items-center gap-2.5">
                             <span class="font-mono text-xs text-stone-400 group-hover:text-nordic-navy">04</span>
                             <span class="group-hover:text-nordic-navy font-semibold">
-                                <span class="lang-sv">Kompetenser</span><span class="lang-en">Skills</span>
+                                <span class="lang-sv">Kompetenser & Språk</span><span class="lang-en">Skills &
+                                    Languages</span>
                             </span>
                         </span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -1538,102 +1539,328 @@
 
             <!-- Station: Kompetenser -->
             <section id="kompetenser" class="station">
-                <div class="flex items-baseline justify-between mb-5 pb-3.5 border-b border-stone-200/80">
+                <div
+                    class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-5 pb-3.5 border-b border-stone-200/80">
                     <h2 class="font-serif text-3xl font-medium text-stone-900 flex items-center gap-3">
                         <span
                             class="font-mono text-xs uppercase tracking-widest text-nordic-navy bg-nordic-navy/5 border border-nordic-navy/15 px-2 py-0.5 rounded">04</span>
                         <span class="lang-sv">Kompetenser & Språk</span><span class="lang-en">Skills & Languages</span>
                     </h2>
+                    <span class="text-xs text-stone-500 font-mono">
+                        <span class="lang-sv">LegalTech • Ekonomi • Ledarskap • IT</span>
+                        <span class="lang-en">LegalTech • Business • Leadership • IT</span>
+                    </span>
                 </div>
 
                 <div class="station-scroll space-y-6">
 
-                    <!-- IT & Programvara -->
+                    <!-- Kategori 1: LegalTech, AI & Automatisering -->
                     <div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
-                            <span class="lang-sv">IT & Programvara</span><span class="lang-en">IT & Software</span>
-                        </h3>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                                </svg>
+                                <span class="lang-sv">LegalTech, AI & Automatisering</span><span
+                                    class="lang-en">LegalTech, AI & Automation</span>
+                            </h3>
+                        </div>
                         <div class="flex flex-wrap gap-2">
+                            <!-- Primära kompetenser -->
                             <span
-                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold">
-                                Microsoft Office (Word, Excel, PowerPoint)
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">AI-driven avtalsgranskning & klausulextraktion</span><span
+                                    class="lang-en">AI Contract Review & Clause Extraction</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold">
-                                AI & LegalTech (Claude, Legora)
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Prompt Engineering för juridisk analys</span><span
+                                    class="lang-en">Legal Prompt Engineering & Workflow Design</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                <span class="lang-sv">Webbutveckling (HTML, CSS, JS)</span><span class="lang-en">Web
-                                    Development (HTML, CSS, JS)</span>
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Legora & LegalTech-plattformar</span><span
+                                    class="lang-en">Legora & LegalTech Platforms</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                Python
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Claude & OpenAI API (LLM-arbetsflöden)</span><span
+                                    class="lang-en">Claude & OpenAI API (LLM Workflows)</span>
+                            </span>
+                            <!-- Övriga specialkompetenser -->
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">M&A Due Diligence-pipelines & CLI-verktyg</span><span
+                                    class="lang-en">M&A Due Diligence Pipelines & CLI Automation</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                <span class="lang-sv">Ärendehanteringssystem</span><span class="lang-en">Case Management
-                                    Systems</span>
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Dokumentautomatisering & mallstandardisering</span><span
+                                    class="lang-en">Document Automation & Template Standardization</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Säkra lokala datarum (On-Premise pipelines)</span><span
+                                    class="lang-en">Secure On-Premise Data Processing</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Informationsstrukturering & metadata-indexering</span><span
+                                    class="lang-en">Information Structuring & Metadata Indexing</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Interaktiva dashboards & automatiserad rapportering</span><span
+                                    class="lang-en">Interactive Dashboards & Automated Reporting</span>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Praktiska Färdigheter -->
+                    <!-- Kategori 2: Verksamhetsstyrning & Företagsekonomi -->
                     <div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
-                            <span class="lang-sv">Praktiska Färdigheter</span><span class="lang-en">Practical
-                                Skills</span>
-                        </h3>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+                                </svg>
+                                <span class="lang-sv">Verksamhetsstyrning & Företagsekonomi</span><span
+                                    class="lang-en">Business Administration & Operations</span>
+                            </h3>
+                        </div>
                         <div class="flex flex-wrap gap-2">
+                            <!-- Primära kompetenser -->
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                <span class="lang-sv">Ledarskap & Team Management</span><span class="lang-en">Leadership
-                                    & Team Management</span>
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Företagsekonomi & redovisningsförståelse</span><span
+                                    class="lang-en">Business Administration & Financial Accounting</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                <span class="lang-sv">Förhandling & Konflikthantering</span><span
-                                    class="lang-en">Negotiation & Conflict Resolution</span>
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Processoptimering & flödesdesign</span><span
+                                    class="lang-en">Process Optimization & Workflow Design</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                <span class="lang-sv">Avtalsgranskning & Dokumentation</span><span
-                                    class="lang-en">Contract Review & Documentation</span>
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Verksamhetsövergångar & outsourcing</span><span
+                                    class="lang-en">Operational Outsourcing & Business Transitions</span>
+                            </span>
+                            <!-- Övriga specialkompetenser -->
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Nationalekonomisk grundanalys</span><span class="lang-en">Economic
+                                    Principles & Market Analysis</span>
                             </span>
                             <span
-                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] rounded-md text-xs font-medium">
-                                <span class="lang-sv">Processoptimering</span><span class="lang-en">Process
-                                    Optimization</span>
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Lagerdrift & returlogistik (Reverse Logistics)</span><span
+                                    class="lang-en">Warehouse Operations & Reverse Logistics</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Arbetsrutiner & SOP-utveckling</span><span class="lang-en">SOP
+                                    Development & Operating Procedures</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Kostnadskontroll & budgetuppföljning</span><span
+                                    class="lang-en">Cost Control & Budget Tracking</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">KPI-uppföljning & verksamhetsanalys</span><span
+                                    class="lang-en">KPI Tracking & Operational Metrics</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Leverantörs- & verkstadssamordning</span><span
+                                    class="lang-en">Vendor & Workshop Coordination</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Projektledning & operativ planering</span><span
+                                    class="lang-en">Project Management & Operational Planning</span>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Språkkunskaper -->
+                    <!-- Kategori 3: Ledarskap & Samverkan -->
                     <div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
-                            <span class="lang-sv">Språkkunskaper</span><span class="lang-en">Languages</span>
-                        </h3>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm text-stone-600">
-                            <li
-                                class="flex justify-between items-center p-3 bg-[#F8F6F1] border border-[#E5E0D5] rounded-lg">
-                                <span class="font-semibold text-stone-800 text-xs">
-                                    <span class="lang-sv">Svenska</span><span class="lang-en">Swedish</span>
-                                </span>
-                                <span class="font-mono text-nordic-navy text-xs font-medium">
-                                    <span class="lang-sv">Modersmål</span><span class="lang-en">Native</span>
-                                </span>
-                            </li>
-                            <li
-                                class="flex justify-between items-center p-3 bg-[#F8F6F1] border border-[#E5E0D5] rounded-lg">
-                                <span class="font-semibold text-stone-800 text-xs">
-                                    <span class="lang-sv">Engelska</span><span class="lang-en">English</span>
-                                </span>
-                                <span class="font-mono text-stone-600 text-xs font-medium">
-                                    <span class="lang-sv">Flytande</span><span class="lang-en">Fluent</span>
-                                </span>
-                            </li>
-                        </ul>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                </svg>
+                                <span class="lang-sv">Ledarskap & Samverkan</span><span class="lang-en">Leadership &
+                                    Collaboration</span>
+                            </h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <!-- Primära kompetenser -->
+                            <span
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Operativt ledarskap & teamledning</span><span
+                                    class="lang-en">Operational Leadership & Team Management</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Förhandling & medling</span><span class="lang-en">Negotiation &
+                                    Mediation</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Konflikthantering & deeskalering</span><span
+                                    class="lang-en">Conflict Resolution & De-escalation</span>
+                            </span>
+                            <!-- Övriga specialkompetenser -->
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Intressenthantering & samverkan</span><span
+                                    class="lang-en">Stakeholder Management & Collaboration</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Förändringsledning & implementering</span><span
+                                    class="lang-en">Change Management & Process Adoption</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Beslutsfattande under tidspress</span><span
+                                    class="lang-en">High-Pressure Decision Making</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Onboarding & medarbetarutveckling</span><span
+                                    class="lang-en">Staff Onboarding & Mentorship</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Eskalationshantering & kundrelationer</span><span
+                                    class="lang-en">Escalation Management & Customer Relations</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Strategisk problemlösning</span><span class="lang-en">Strategic
+                                    Problem Solving</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Kategori 4: IT, Utveckling & System -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                                </svg>
+                                <span class="lang-sv">IT, Utveckling & System</span><span class="lang-en">IT,
+                                    Development & Systems</span>
+                            </h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <!-- Primära verktyg -->
+                            <span
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                Microsoft 365 (Word, Excel, PowerPoint, Teams, SharePoint, OneDrive)
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-nordic-navy/10 text-nordic-navy border border-nordic-navy/20 rounded-md text-xs font-semibold hover:bg-nordic-navy/15 transition-colors">
+                                <span class="lang-sv">Python (Automationsskript, databearbetning)</span><span
+                                    class="lang-en">Python (Automation Scripts, Data Processing)</span>
+                            </span>
+                            <!-- Övriga teknologier -->
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Webbutveckling (HTML5, CSS3, Modern JavaScript)</span><span
+                                    class="lang-en">Web Development (HTML5, CSS3, Modern JavaScript)</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Git & GitHub (Versionshantering)</span><span
+                                    class="lang-en">Git & GitHub (Version Control)</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">REST API:er & dataintegrationer</span><span class="lang-en">REST
+                                    APIs & Data Integrations</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Streamlit (Webbgränssnitt för data & analys)</span><span
+                                    class="lang-en">Streamlit (Web UIs for Data & Analytics)</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">Ärendehanteringssystem & CRM/ERP</span><span class="lang-en">Case
+                                    Management & CRM/ERP Systems</span>
+                            </span>
+                            <span
+                                class="px-3.5 py-1.5 bg-[#F8F6F1] text-stone-800 border border-[#E5E0D5] hover:border-nordic-navy/40 hover:bg-[#F2EFE9] transition-all rounded-md text-xs font-medium">
+                                <span class="lang-sv">PDF-bearbetning (PyPDF, pdfplumber) & Pandas</span><span
+                                    class="lang-en">PDF Text Extraction & Data Parsing (Pandas)</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Kategori 5: Språkkunskaper -->
+                    <div class="pt-2">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                                </svg>
+                                <span class="lang-sv">Språkkunskaper</span><span class="lang-en">Languages</span>
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <div
+                                class="p-3 bg-[#F8F6F1] border border-[#E5E0D5] rounded-lg flex flex-col justify-between">
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <span class="font-bold text-stone-800 text-xs">
+                                        <span class="lang-sv">Svenska</span><span class="lang-en">Swedish</span>
+                                    </span>
+                                    <span class="font-mono text-nordic-navy text-[11px] font-semibold">
+                                        <span class="lang-sv">Modersmål</span><span class="lang-en">Native</span>
+                                    </span>
+                                </div>
+                                <p class="text-[11px] text-stone-500 leading-tight">
+                                    <span class="lang-sv">Fullständig behärskning i tal och skrift</span>
+                                    <span class="lang-en">Native proficiency in spoken and written Swedish</span>
+                                </p>
+                            </div>
+                            <div
+                                class="p-3 bg-[#F8F6F1] border border-[#E5E0D5] rounded-lg flex flex-col justify-between">
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <span class="font-bold text-stone-800 text-xs">
+                                        <span class="lang-sv">Engelska</span><span class="lang-en">English</span>
+                                    </span>
+                                    <span class="font-mono text-nordic-navy text-[11px] font-semibold">
+                                        <span class="lang-sv">Flytande</span><span class="lang-en">Full
+                                            Professional</span>
+                                    </span>
+                                </div>
+                                <p class="text-[11px] text-stone-500 leading-tight">
+                                    <span class="lang-sv">Arbetsspråk i internationell företags- och
+                                        forskningsmiljö</span>
+                                    <span class="lang-en">Working language in international corporate & research
+                                        settings</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2263,8 +2490,8 @@
             'start': { x: 2500, y: 2500 },
             'om-mig': { x: 1000, y: 1100 },
             'erfarenhet': { x: 3200, y: 1100 },
-            'utbildning': { x: 900, y: 2600 },
-            'kompetenser': { x: 4000, y: 2500 },
+            'utbildning': { x: 450, y: 2600 },
+            'kompetenser': { x: 4650, y: 2500 },
             'projekt': { x: 1100, y: 4100 },
             'kontakt': { x: 4000, y: 3900 }
         };
@@ -2429,8 +2656,8 @@
             const customDistances = {
                 'om-mig': 760,
                 'erfarenhet': 920,
-                'utbildning': 820,
-                'kompetenser': 860,
+                'utbildning': 1020,
+                'kompetenser': 1060,
                 'projekt': 1020,
                 'kontakt': 900
             };
