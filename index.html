@@ -508,7 +508,7 @@
                 title="Zooma ut" aria-label="Zooma ut">−</button>
             <button type="button" onclick="resetZoom()" id="zoom-level-label"
                 class="px-1 text-[10px] font-mono font-semibold text-nordic-navy hover:underline"
-                title="Återställ zoom (92%)">92%</button>
+                title="Återställ zoom (100%)">100%</button>
             <button type="button" onclick="changeZoom(0.08)"
                 class="w-4 h-4 flex items-center justify-center rounded-full hover:bg-stone-200 text-stone-600 font-bold text-xs transition-colors"
                 title="Zooma in" aria-label="Zooma in">+</button>
@@ -2393,24 +2393,17 @@
         let hasUserManuallyZoomed = false;
 
         // Beräknar optimal standardskala baserat på faktisk skärmstorlek
-        function getAdaptiveDefaultScale() {
-            const w = window.innerWidth;
-            const h = window.innerHeight;
+        // Basnivå: 100% zoom motsvarar nu 0.70 i faktisk skala
+        const BASE_SCALE = 0.70;
 
-            // Stora externa skärmar (t.ex. 24", 27", 1440p eller 4K)
-            // Här ger 0.92 en fin överblick med lagom luft runt korten
-            if (w >= 1680 && h >= 920) {
-                return 0.92;
-            }
-            // Bärbara datorer / laptops (13"-16" skärmar eller lägre höjd)
-            // Här ska skalan vara 1.0 (100%) så att text och knappar förblir tydliga och inte blir för små!
-            return 1.0;
+        function getAdaptiveDefaultScale() {
+            return BASE_SCALE;
         }
 
         let DEFAULT_SCALE = getAdaptiveDefaultScale();
         let currentScale = DEFAULT_SCALE;
-        const MIN_SCALE = 0.50;
-        const MAX_SCALE = 1.35;
+        const MIN_SCALE = 0.28; // Motsvarar 40% i UI
+        const MAX_SCALE = 1.05; // Motsvarar 150% i UI
 
         // Uppdaterar canvas-position med GPU-accelererad translate3d och synkar minikartan
         function setCanvasTransform(x, y, scale = currentScale) {
@@ -2419,10 +2412,11 @@
             currentScale = scale;
             canvas.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
 
-            // Uppdatera zoom-etikett i HUD
+            // Uppdatera zoom-etikett i HUD (100% motsvarar BASE_SCALE = 0.70)
             const zoomLabel = document.getElementById('zoom-level-label');
             if (zoomLabel) {
-                zoomLabel.textContent = Math.round(scale * 100) + '%';
+                const displayZoom = Math.round((scale / BASE_SCALE) * 100);
+                zoomLabel.textContent = displayZoom + '%';
             }
 
             // Visa "Centrera vy"-knapp om användaren panorerat långt bort från aktiv station
@@ -2461,7 +2455,7 @@
         }
 
         function changeZoom(delta) {
-            setZoom(currentScale + delta, window.innerWidth / 2, window.innerHeight / 2, true);
+            setZoom(currentScale + (delta * BASE_SCALE), window.innerWidth / 2, window.innerHeight / 2, true);
         }
 
         function resetZoom() {
@@ -2623,6 +2617,11 @@
             }
             if (phoneLabel && !phoneLabel.textContent.includes('✓')) {
                 phoneLabel.textContent = lang === 'sv' ? 'Kopiera' : 'Copy';
+            }
+
+            const zoomResetBtn = document.getElementById('zoom-level-label');
+            if (zoomResetBtn) {
+                zoomResetBtn.title = lang === 'sv' ? 'Återställ zoom (100%)' : 'Reset zoom (100%)';
             }
 
             // Justera höjd på eventuellt öppna dragspel under Arbetslivserfarenhet
@@ -2874,7 +2873,7 @@
                 return;
             }
             e.preventDefault();
-            const delta = e.deltaY < 0 ? 0.05 : -0.05;
+            const delta = (e.deltaY < 0 ? 0.05 : -0.05) * BASE_SCALE;
             setZoom(currentScale + delta, e.clientX, e.clientY, true);
         }, { passive: false });
 
