@@ -2236,10 +2236,11 @@
                     </p>
 
                     <div class="flex flex-col gap-3">
-                        <!-- E-post -->
+                        <!-- E-post (Monteras dynamiskt i JS för att döljas från GitHub-källkod och bot-skrapning) -->
                         <div class="interactive-card flex items-center justify-between gap-4 p-3.5">
-                            <a href="mailto:alfred.stengard@outlook.com"
-                                class="flex items-center gap-3.5 min-w-0 flex-1 group">
+                            <a id="contact-email-link" href="#"
+                                class="flex items-center gap-3.5 min-w-0 flex-1 group"
+                                title="Skicka e-post / Send email">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-nordic-navy/10 flex items-center justify-center text-nordic-navy shrink-0 group-hover:bg-nordic-navy group-hover:text-white transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -2252,20 +2253,23 @@
                                     <div class="text-xs font-bold uppercase tracking-wider text-stone-500">
                                         <span class="lang-sv">E-post</span><span class="lang-en">Email</span>
                                     </div>
-                                    <div
+                                    <div id="contact-email-text"
                                         class="text-stone-900 font-medium text-sm truncate group-hover:text-nordic-navy transition-colors">
-                                        alfred.stengard@outlook.com</div>
+                                    </div>
                                 </div>
                             </a>
-                            <button onclick="copyToClipboard('alfred.stengard@outlook.com', 'copy-email-label')"
+                            <button id="copy-email-btn"
                                 class="px-2.5 py-1.5 rounded-md bg-white border border-stone-200/90 hover:border-nordic-navy text-xs font-medium text-stone-600 hover:text-nordic-navy transition-all shrink-0">
-                                <span id="copy-email-label">Copy</span>
+                                <span id="copy-email-label">
+                                    <span class="lang-sv">Kopiera</span><span class="lang-en">Copy</span>
+                                </span>
                             </button>
                         </div>
 
-                        <!-- Telefon -->
+                        <!-- Telefon (Monteras dynamiskt i JS för att döljas från GitHub-källkod och bot-skrapning) -->
                         <div class="interactive-card flex items-center justify-between gap-4 p-3.5">
-                            <a href="tel:+46737212163" class="flex items-center gap-3.5 min-w-0 flex-1 group">
+                            <a id="contact-phone-link" href="#" class="flex items-center gap-3.5 min-w-0 flex-1 group"
+                                title="Ring / Call">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-nordic-navy/10 flex items-center justify-center text-nordic-navy shrink-0 group-hover:bg-nordic-navy group-hover:text-white transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -2278,14 +2282,16 @@
                                     <div class="text-xs font-bold uppercase tracking-wider text-stone-500">
                                         <span class="lang-sv">Telefon</span><span class="lang-en">Phone</span>
                                     </div>
-                                    <div
+                                    <div id="contact-phone-text"
                                         class="text-stone-900 font-medium text-sm group-hover:text-nordic-navy transition-colors">
-                                        +46 73 721 21 63</div>
+                                    </div>
                                 </div>
                             </a>
-                            <button onclick="copyToClipboard('+46 73 721 21 63', 'copy-phone-label')"
+                            <button id="copy-phone-btn"
                                 class="px-2.5 py-1.5 rounded-md bg-white border border-stone-200/90 hover:border-nordic-navy text-xs font-medium text-stone-600 hover:text-nordic-navy transition-all shrink-0">
-                                <span id="copy-phone-label">Copy</span>
+                                <span id="copy-phone-label">
+                                    <span class="lang-sv">Kopiera</span><span class="lang-en">Copy</span>
+                                </span>
                             </button>
                         </div>
 
@@ -3056,6 +3062,34 @@
             }
         }
 
+        // Skyddad montering av kontaktuppgifter (döljer e-post och telefon från publika GitHub-sökningar och scrapers)
+        function initContactDetails() {
+            try {
+                const _decode = (s) => atob(s).split('').reverse().join('');
+                const email = _decode('bW9jLmtvb2x0dW9AZHJhZ25ldHMuZGVyZmxh');
+                const phone = _decode('MzYgMTIgMTI3IDM3IDY0Kw==');
+                const tel = _decode('MzYxMjEyNzM3NjQr');
+
+                const emailLink = document.getElementById('contact-email-link');
+                const emailText = document.getElementById('contact-email-text');
+                const copyEmailBtn = document.getElementById('copy-email-btn');
+
+                if (emailLink) emailLink.href = 'mailto:' + email;
+                if (emailText) emailText.textContent = email;
+                if (copyEmailBtn) copyEmailBtn.onclick = () => copyToClipboard(email, 'copy-email-label');
+
+                const phoneLink = document.getElementById('contact-phone-link');
+                const phoneText = document.getElementById('contact-phone-text');
+                const copyPhoneBtn = document.getElementById('copy-phone-btn');
+
+                if (phoneLink) phoneLink.href = 'tel:' + tel;
+                if (phoneText) phoneText.textContent = phone;
+                if (copyPhoneBtn) copyPhoneBtn.onclick = () => copyToClipboard(phone, 'copy-phone-label');
+            } catch (err) {
+                console.error('Kunde inte initialisera kontaktuppgifter:', err);
+            }
+        }
+
         // Kopiera kontaktuppgifter med direkt visuell bekräftelse
         function copyToClipboard(text, labelId) {
             if (!navigator.clipboard) return;
@@ -3071,6 +3105,7 @@
 
         // Initiering
         window.onload = () => {
+            initContactDetails();
             DEFAULT_SCALE = getAdaptiveDefaultScale();
             currentScale = DEFAULT_SCALE;
             drawConnections();
