@@ -609,7 +609,7 @@
                 </h2>
 
                 <div
-                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-stone-100 border border-stone-200/80 mb-5">
+                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#F8F6F1] border border-[#E5E0D5] mb-5">
                     <p class="text-xs font-bold tracking-widest uppercase text-nordic-navy/80">
                         <span class="lang-sv">Välkommen till mitt interaktiva CV</span>
                         <span class="lang-en">Welcome to my interactive CV</span>
@@ -1413,7 +1413,8 @@
                         </p>
 
                         <!-- Expandable Course List: Ekonomieprogrammet -->
-                        <div id="item-edu-econ" class="group cursor-pointer py-1.5" onclick="toggleAccordion('edu-econ')">
+                        <div id="item-edu-econ" class="group cursor-pointer py-1.5"
+                            onclick="toggleAccordion('edu-econ')">
                             <div class="flex justify-between items-center gap-4">
                                 <span
                                     class="inline-block py-0.5 text-xs font-bold uppercase tracking-wider leading-relaxed text-nordic-navy group-hover:text-stone-900 transition-colors">
@@ -2314,6 +2315,126 @@
                                     d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                             </svg>
                         </a>
+                    </div>
+
+                    <!-- Ladda ner / Skriv ut CV (PDF) -->
+                    <div class="pt-2">
+                        <div class="flex items-center justify-between mb-2.5">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.8" stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                </svg>
+                                <span class="lang-sv">CV (PDF)</span>
+                                <span class="lang-en">CV (PDF)</span>
+                            </h3>
+                            <span class="text-[11px] font-mono text-stone-400">
+                                <span class="lang-sv">Öppna, skriv ut eller ladda ner</span>
+                                <span class="lang-en">View, print or download</span>
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <!-- Engelsk version (Vänster) -->
+                            <div class="interactive-card flex items-center justify-between gap-3 p-3.5">
+                                <a href="CV_Alfred_Stengard_Eng.pdf" target="_blank" rel="noopener noreferrer"
+                                    class="flex items-center gap-3 min-w-0 flex-1 group/link"
+                                    title="CV Alfred Stengard [Eng]">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-nordic-navy/10 flex items-center justify-center text-nordic-navy shrink-0 group-hover/link:bg-nordic-navy group-hover/link:text-white transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.8" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                        </svg>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <div
+                                            class="text-xs font-bold uppercase tracking-wider text-stone-500 flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-2.5 rounded-[1px] shadow-2xs shrink-0"
+                                                viewBox="0 0 60 30">
+                                                <clipPath id="uk-flag-label">
+                                                    <path d="M0,0 v30 h60 v-30 z" />
+                                                </clipPath>
+                                                <g clip-path="url(#uk-flag-label)">
+                                                    <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+                                                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+                                                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E"
+                                                        stroke-width="2.5" />
+                                                    <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+                                                    <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+                                                </g>
+                                            </svg>
+                                            <span class="lang-sv">Engelsk version</span>
+                                            <span class="lang-en">English version</span>
+                                        </div>
+                                        <div
+                                            class="text-stone-900 font-medium text-sm truncate group-hover/link:text-nordic-navy transition-colors">
+                                            CV Alfred Stengard [Eng]
+                                        </div>
+                                        <div
+                                            class="text-[11px] text-stone-400 group-hover/link:text-nordic-navy flex items-center gap-1 transition-colors">
+                                            <span class="lang-sv">Öppna & skriv ut</span>
+                                            <span class="lang-en">View & print</span>
+                                            <span class="text-[10px]">↗</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor"
+                                    class="w-4 h-4 text-stone-400 group-hover/link:text-nordic-navy group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all mr-1 shrink-0">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+
+                            <!-- Svensk version (Höger) -->
+                            <div class="interactive-card flex items-center justify-between gap-3 p-3.5">
+                                <a href="CV_Alfred_Stengard_Sv.pdf" target="_blank" rel="noopener noreferrer"
+                                    class="flex items-center gap-3 min-w-0 flex-1 group/link"
+                                    title="CV Alfred Stengard [Sv]">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-nordic-navy/10 flex items-center justify-center text-nordic-navy shrink-0 group-hover/link:bg-nordic-navy group-hover/link:text-white transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.8" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                        </svg>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <div
+                                            class="text-xs font-bold uppercase tracking-wider text-stone-500 flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-2.5 rounded-[1px] shadow-2xs shrink-0"
+                                                viewBox="0 0 16 10">
+                                                <rect width="16" height="10" fill="#006AA7" />
+                                                <rect x="5" width="2" height="10" fill="#FECC00" />
+                                                <rect y="4" width="16" height="2" fill="#FECC00" />
+                                            </svg>
+                                            <span class="lang-sv">Svensk version</span>
+                                            <span class="lang-en">Swedish version</span>
+                                        </div>
+                                        <div
+                                            class="text-stone-900 font-medium text-sm truncate group-hover/link:text-nordic-navy transition-colors">
+                                            CV Alfred Stengard [Sv]
+                                        </div>
+                                        <div
+                                            class="text-[11px] text-stone-400 group-hover/link:text-nordic-navy flex items-center gap-1 transition-colors">
+                                            <span class="lang-sv">Öppna & skriv ut</span>
+                                            <span class="lang-en">View & print</span>
+                                            <span class="text-[10px]">↗</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor"
+                                    class="w-4 h-4 text-stone-400 group-hover/link:text-nordic-navy group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all mr-1 shrink-0">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
