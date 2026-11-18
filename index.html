@@ -154,7 +154,7 @@
         }
 
         #projekt {
-            width: min(90vw, 960px);
+            width: min(92vw, 1020px);
         }
 
         #kompetenser {
@@ -225,6 +225,35 @@
 
         .station-scroll::-webkit-scrollbar-thumb:hover {
             background-color: #A8A29E;
+        }
+
+        #projekt .station-scroll {
+            max-height: min(68vh, 650px);
+        }
+
+        .project-list-card {
+            background: #FCFBF9;
+            border: 1px solid #E5E0D5;
+            border-radius: 12px;
+            padding: 1.15rem 1.35rem;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .project-list-card:hover {
+            border-color: rgba(21, 35, 62, 0.32);
+            box-shadow: 0 4px 16px -2px rgba(21, 35, 62, 0.06);
+            background: #FFFFFF;
+        }
+
+        .project-list-card.is-open {
+            border-color: rgba(21, 35, 62, 0.28);
+            box-shadow: 0 2px 12px -2px rgba(21, 35, 62, 0.05);
+            background: #FFFFFF;
+        }
+
+        .project-cat-btn {
+            cursor: pointer;
+            user-select: none;
         }
 
         /* SVG Lager för att rita linjer mellan stationer */
@@ -548,6 +577,137 @@
             <span class="lang-sv">Centrera vy</span>
             <span class="lang-en">Recenter view</span>
         </button>
+    </div>
+
+    <!-- Modal Popup: Bra att veta om mina projekt / Technical context & good to know -->
+    <div id="projects-info-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs transition-opacity duration-200"
+        role="dialog" aria-modal="true" aria-labelledby="modal-projects-title" onclick="handleModalBackdropClick(event)"
+        onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()" onwheel="event.stopPropagation()">
+        <div class="relative w-full max-w-2xl bg-[#FCFBF9] rounded-2xl border border-[#D3CCBE] shadow-2xl overflow-hidden flex flex-col max-h-[88vh]"
+            onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b border-stone-200/80 bg-[#F6F4EF]">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-nordic-navy/10 flex items-center justify-center text-nordic-navy">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </div>
+                    <h3 id="modal-projects-title" class="font-serif text-lg sm:text-xl font-bold text-nordic-navy">
+                        <span class="lang-sv">Bra att veta om mina projekt</span>
+                        <span class="lang-en">Technical context & good to know</span>
+                    </h3>
+                </div>
+                <button type="button" onclick="closeProjectsInfoModal()" aria-label="Close"
+                    class="w-8 h-8 rounded-lg flex items-center justify-center text-stone-400 hover:text-stone-700 hover:bg-stone-200/60 transition-colors cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-4 text-stone-700 text-sm leading-relaxed">
+                <ul class="space-y-4">
+                    <li class="flex gap-3">
+                        <span class="text-nordic-navy font-bold text-base leading-none mt-0.5">•</span>
+                        <div>
+                            <strong class="font-semibold text-stone-900 block mb-0.5">
+                                <span class="lang-sv">Säkra länkar & Molndrift:</span><span class="lang-en">Safe links &
+                                    Cloud hosting:</span>
+                            </strong>
+                            <span class="lang-sv">Projekten är webbapplikationer (Python, HTML/CSS/JS) som driftas på
+                                väletablerade plattformar som Github Pages, Vercel och Streamlit.</span>
+                            <span class="lang-en">The projects are web applications (Python, HTML/CSS/JS) hosted on
+                                well-established platforms like GitHub Pages, Vercel and Streamlit.</span>
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-nordic-navy font-bold text-base leading-none mt-0.5">•</span>
+                        <div>
+                            <strong class="font-semibold text-stone-900 block mb-0.5">
+                                <span class="lang-sv">M&A Due Diligence Engine (Varför inte en offentlig
+                                    webbapp?):</span><span class="lang-en">M&A Due Diligence Engine (Why not a public
+                                    web app?):</span>
+                            </strong>
+                            <span class="lang-sv">Till skillnad från webbapplikationerna är M&A-motorn byggd som en
+                                lokal automatiseringspipeline (CLI/on-premise). För att säkerställa konfidentialitet
+                                körs motorn lokalt och granskar PDF-avtal direkt ur datarummet utan att data lämnar
+                                miljön. Länkarna på kortet visar autentiska beslutsunderlag (interaktiv dashboard och
+                                PDF-rapport) framtagna genom en syntetisk testtransaktion (<em>"Project
+                                    Titan"</em>).</span>
+                            <span class="lang-en">Unlike the web applications, the M&A engine is engineered as a local
+                                on-premise pipeline. In order to ensure confidentiality, the engine audits PDFs directly
+                                from a local folder without data ever leaving the secure environment. The links below
+                                display authentic deliverables (an interactive dashboard with Excel export capabilities
+                                and an executive PDF report) generated from a simulated deal (<em>"Project
+                                    Titan"</em>).</span>
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-nordic-navy font-bold text-base leading-none mt-0.5">•</span>
+                        <div>
+                            <strong class="font-semibold text-stone-900 block mb-0.5">
+                                <span class="lang-sv">Datalagring & Företagsintegrationer:</span><span
+                                    class="lang-en">Data Storage & Integrations:</span>
+                            </strong>
+                            <span class="lang-sv">Webbapplikationerna i portföljen sparar avsiktligen ingen data mellan
+                                sessioner (de körs "stateless" för maximal integritet och klientsäkerhet under
+                                testning). Vid en skarp implementering kan verktygen dock enkelt integreras med
+                                befintliga system (t.ex. Microsoft SharePoint eller OneDrive) för att automatiskt spara
+                                och synkronisera data mellan sessionerna.</span>
+                            <span class="lang-en">The public demo applications intentionally do not store or persist
+                                data between sessions (they operate strictly stateless for privacy and security during
+                                testing). However, for enterprise deployment, the tools can readily integrate with
+                                existing document management platforms (such as Microsoft SharePoint or OneDrive) to
+                                securely save the data between sessions.</span>
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-nordic-navy font-bold text-base leading-none mt-0.5">•</span>
+                        <div>
+                            <strong class="font-semibold text-stone-900 block mb-0.5">
+                                <span class="lang-sv">Laddningstider:</span><span class="lang-en">Loading times:</span>
+                            </strong>
+                            <span class="lang-sv">Eftersom vissa applikationer använder gratisversioner av molnservrar
+                                (s.k. "free tiers") kan det ta 30–60 sekunder för en app att "vakna" första gången du
+                                besöker den om ingen varit där på ett tag. Ha tålamod vid första klicket!</span>
+                            <span class="lang-en">Because some applications use free-tier cloud servers, it may take
+                                30–60 seconds for an app to "wake up" the first time you visit if it hasn't been active
+                                recently. Please be patient on the first click!</span>
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-nordic-navy font-bold text-base leading-none mt-0.5">•</span>
+                        <div>
+                            <strong class="font-semibold text-stone-900 block mb-0.5">
+                                <span class="lang-sv">Öppen källkod:</span><span class="lang-en">Open Source:</span>
+                            </strong>
+                            <span class="lang-sv">Den bakomliggande koden till alla projekt finns publicerad på min
+                                GitHub-sida (länken uppe till höger). Vem som helst kan granska eller ladda ner
+                                koden.</span>
+                            <span class="lang-en">The underlying code for all projects is openly published on my GitHub
+                                page (link top right). Anyone can review or download the code.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-3.5 border-t border-stone-200/80 bg-[#F6F4EF] flex items-center justify-between">
+                <span class="text-xs text-stone-500 font-mono">
+                </span>
+                <button type="button" onclick="closeProjectsInfoModal()"
+                    class="px-5 py-2 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors shadow-xs cursor-pointer">
+                    <span class="lang-sv">Stäng</span>
+                    <span class="lang-en">Close</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Huvudfönster (Viewport) -->
@@ -1768,180 +1928,359 @@
             <!-- Station: Projekt -->
             <section id="projekt" class="station">
                 <div
-                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5 pb-3.5 border-b border-stone-200/80">
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 pb-3.5 border-b border-stone-200/80">
                     <h2 class="font-serif text-3xl font-medium text-stone-900 flex items-center gap-3">
                         <span
                             class="font-mono text-xs uppercase tracking-widest text-nordic-navy bg-nordic-navy/5 border border-nordic-navy/15 px-2 py-0.5 rounded">05</span>
                         <span class="lang-sv">Utvalda Projekt</span><span class="lang-en">Featured Projects</span>
                     </h2>
 
-                    <a href="https://github.com/AStengard" target="_blank" rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D5] text-xs text-nordic-navy font-semibold hover:bg-nordic-navy hover:text-white hover:border-nordic-navy transition-all self-start sm:self-auto relative z-20">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                            fill="currentColor">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                        <span class="lang-sv">All källkod tillgänglig på min GitHub</span>
-                        <span class="lang-en">All source code available on my GitHub</span>
-                    </a>
+                    <div class="flex flex-wrap items-center gap-2 self-start sm:self-auto relative z-20">
+                        <button type="button" onclick="openProjectsInfoModal()" id="btn-info-projects"
+                            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-all shadow-xs cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" class="w-3.5 h-3.5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                            </svg>
+                            <span class="lang-sv">Bra att veta</span><span class="lang-en">Technical context & good to
+                                know</span>
+                        </button>
+
+                        <a href="https://github.com/AStengard" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#F8F6F1] border border-[#E5E0D5] text-xs text-nordic-navy font-semibold hover:bg-nordic-navy hover:text-white hover:border-nordic-navy transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                            <span class="lang-sv">All källkod tillgänglig på min GitHub</span>
+                            <span class="lang-en">All source code available on my GitHub</span>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="station-scroll space-y-6">
-
-                    <!-- Expandable Informationsruta om teknisk bakgrund -->
-                    <div id="item-info-projects" class="bg-[#F8F6F1]/70 rounded-lg border border-[#EAE5DB] mb-5 group">
-                        <div class="p-3.5 px-4 cursor-pointer flex justify-between items-center"
-                            onclick="toggleAccordion('info-projects')">
-                            <h3
-                                class="text-sm font-bold uppercase tracking-wider text-nordic-navy flex items-center gap-1.5 m-0 group-hover:text-stone-900 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="2.2" stroke="currentColor" class="w-4 h-4 text-nordic-navy/70">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                </svg>
-                                <span class="lang-sv">Bra att veta om mina projekt</span><span class="lang-en">Technical
-                                    context & good to know</span>
-                            </h3>
-                            <svg id="icon-info-projects" xmlns="http://www.w3.org/2000/svg"
-                                class="w-4 h-4 text-nordic-navy/70 transition-transform duration-300 shrink-0"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
+                <!-- Kategori-väljare & Kontroller (Legal alltid först) -->
+                <div
+                    class="mb-4 pb-3 border-b border-stone-200/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <!-- Kategori-flikar -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="inline-flex flex-wrap items-center gap-1.5 p-1.5 bg-[#F2EFE8] rounded-xl border border-[#DDD6C8] shadow-2xs"
+                            role="tablist" aria-label="Filtrera projekt efter kategori">
+                            <button type="button" onclick="filterProjects('all')" id="cat-btn-all"
+                                class="project-cat-btn px-4 sm:px-4.5 py-2 rounded-lg text-sm font-bold transition-all bg-nordic-navy text-white shadow-xs flex items-center gap-2.5 ring-2 ring-nordic-navy/30">
+                                <span class="lang-sv">Alla projekt</span><span class="lang-en">All projects</span>
+                                <span
+                                    class="cat-count font-mono text-xs font-bold bg-white/25 text-white px-2 py-0.5 rounded-full">9</span>
+                            </button>
+                            <button type="button" onclick="filterProjects('legal')" id="cat-btn-legal"
+                                class="project-cat-btn px-4 sm:px-4.5 py-2 rounded-lg text-sm font-bold transition-all bg-white text-stone-800 hover:text-nordic-navy hover:bg-stone-50 border border-stone-300 shadow-2xs flex items-center gap-2.5">
+                                <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
+                                <span
+                                    class="cat-count font-mono text-xs font-bold bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full border border-stone-200">5</span>
+                            </button>
+                            <button type="button" onclick="filterProjects('other')" id="cat-btn-other"
+                                class="project-cat-btn px-4 sm:px-4.5 py-2 rounded-lg text-sm font-bold transition-all bg-white text-stone-800 hover:text-nordic-navy hover:bg-stone-50 border border-stone-300 shadow-2xs flex items-center gap-2.5">
+                                <span class="lang-sv">Övrigt</span><span class="lang-en">Other</span>
+                                <span
+                                    class="cat-count font-mono text-xs font-bold bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full border border-stone-200">3</span>
+                            </button>
+                            <button type="button" onclick="filterProjects('games')" id="cat-btn-games"
+                                class="project-cat-btn px-4 sm:px-4.5 py-2 rounded-lg text-sm font-bold transition-all bg-white text-stone-800 hover:text-nordic-navy hover:bg-stone-50 border border-stone-300 shadow-2xs flex items-center gap-2.5">
+                                <span class="lang-sv">Spel</span><span class="lang-en">Games</span>
+                                <span
+                                    class="cat-count font-mono text-xs font-bold bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full border border-stone-200">1</span>
+                            </button>
                         </div>
-                        <div id="content-info-projects"
-                            class="exp-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                    </div>
+
+                    <!-- Vägledning & Expandera alla -->
+                    <div class="flex items-center gap-2 self-start sm:self-auto">
+                        <span
+                            class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200/80 text-[11px] text-stone-500 font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-nordic-navy/70" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="lang-sv">Klicka på ett projekt för detaljer</span>
+                            <span class="lang-en">Click a project for details</span>
+                        </span>
+                        <button onclick="toggleAllProjects()" id="toggle-all-proj-btn"
+                            class="px-2.5 py-1 rounded-md bg-[#F8F6F1] hover:bg-stone-200/60 border border-stone-200/90 text-xs text-nordic-navy font-semibold transition-colors">
+                            <span class="lang-sv">Expandera alla</span><span class="lang-en">Expand all</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="station-scroll space-y-3.5">
+
+                    <!-- Kategori-rubrik: Juridik -->
+                    <div class="project-cat-header flex items-center justify-between pt-2.5 pb-2 mb-2 border-b-2 border-nordic-navy/25"
+                        data-cat="legal">
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-nordic-navy tracking-tight">
+                            <span class="lang-sv">Juridik & Legal Tech</span><span class="lang-en">Legal & Legal
+                                Tech</span>
+                        </h3>
+                    </div>
+
+                    <!-- 1. Vanguard IP Audit (Legal - RECOMMENDED) -->
+                    <div id="item-proj-vanguard" class="project-list-card group cursor-pointer" data-category="legal"
+                        onclick="toggleProjectAccordion('proj-vanguard')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <h4
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
+                                        Vanguard IP Audit
+                                    </h4>
+                                    <!-- Recommended Badge -->
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-[#EEF4F0] text-[#285A3C] border border-[#CCE0D3] shadow-2xs">
+                                        <svg class="w-3.5 h-3.5 fill-[#285A3C]" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="lang-sv">Rekommenderad</span><span
+                                            class="lang-en">Recommended</span>
+                                    </span>
+                                    <!-- Category Badge -->
+                                    <span
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-nordic-navy bg-nordic-navy/10 border border-nordic-navy/25 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv"> Europeisk patent due diligence för M&A • EPO OPS
+                                        v3.2 API & OAuth2</span>
+                                    <span class="lang-en">European Patent Due Diligence for M&A • EPO OPS v3.2 API &
+                                        OAuth2 Proxy</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://vanguard-ip-audit.vercel.app/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna app</span><span class="lang-en">Open app</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-vanguard" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-vanguard"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
                             style="max-height: 0px;">
-                            <div class="px-4 pb-4 pt-1 border-t border-stone-200/50 mx-2">
-                                <ul class="text-stone-700 leading-relaxed text-[13.5px] space-y-2.5 mt-3">
-                                    <li class="flex gap-2">
-                                        <span class="text-nordic-navy font-bold mt-0.5">•</span>
-                                        <span>
-                                            <strong class="font-semibold text-stone-800"><span class="lang-sv">Säkra
-                                                    länkar & Molndrift:</span><span class="lang-en">Safe links & Cloud
-                                                    hosting:</span></strong>
-                                            <span class="lang-sv">Projekten är webbapplikationer (Python, HTML/CSS/JS)
-                                                som driftas på väletablerade plattformar som Github Pages, Vercel och
-                                                Streamlit.</span>
-                                            <span class="lang-en">The projects are web applications (Python,
-                                                HTML/CSS/JS) hosted on well-established platforms like GitHub Pages,
-                                                Vercel and
-                                                Streamlit.</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex gap-2">
-                                        <span class="text-nordic-navy font-bold mt-0.5">•</span>
-                                        <span>
-                                            <strong class="font-semibold text-stone-800"><span class="lang-sv">M&A Due
-                                                    Diligence Engine (Varför inte en offentlig webbapp?):</span><span
-                                                    class="lang-en">M&A Due Diligence Engine (Why not a public web
-                                                    app?):</span></strong>
-                                            <span class="lang-sv">Till skillnad från webbapplikationerna är M&A-motorn
-                                                byggd som en lokal automatiseringspipeline (CLI/on-premise). För att
-                                                säkerställa konfidentialitet körs motorn lokalt och granskar PDF-avtal
-                                                direkt ur datarummet utan att data lämnar miljön. Länkarna på kortet
-                                                visar autentiska beslutsunderlag (interaktiv dashboard och PDF-rapport)
-                                                framtagna genom en syntetisk testtransaktion (<em>"Project
-                                                    Titan"</em>).</span>
-                                            <span class="lang-en">Unlike the web applications, the M&A engine is
-                                                engineered as a local on-premise pipeline. In order to ensure
-                                                confidentiality, the engine audits PDFs directly from a local folder
-                                                without data ever leaving the secure environment. The links below
-                                                display authentic deliverables (an interactive dashboard with Excel
-                                                export capabilities and
-                                                an executive PDF report) generated from a simulated deal (<em>"Project
-                                                    Titan"</em>).</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex gap-2">
-                                        <span class="text-nordic-navy font-bold mt-0.5">•</span>
-                                        <span>
-                                            <strong class="font-semibold text-stone-800"><span
-                                                    class="lang-sv">Datalagring & Företagsintegrationer:</span><span
-                                                    class="lang-en">Data Storage & Integrations:</span></strong>
-                                            <span class="lang-sv">Webbapplikationerna i portföljen sparar avsiktligen
-                                                ingen data mellan sessioner (de körs "stateless" för maximal integritet
-                                                och klientsäkerhet under testning). Vid en skarp implementering kan
-                                                verktygen dock enkelt integreras med
-                                                befintliga system (t.ex. Microsoft SharePoint eller OneDrive)
-                                                för att automatiskt spara och synkronisera data mellan
-                                                sessionerna.</span>
-                                            <span class="lang-en">The public demo applications intentionally do not
-                                                store or persist data between sessions (they operate strictly stateless
-                                                for privacy and security during testing). However, for enterprise
-                                                deployment, the tools can readily integrate with existing document
-                                                management platforms (such as Microsoft SharePoint or OneDrive)
-                                                to securely save the data between sessions.</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex gap-2">
-                                        <span class="text-nordic-navy font-bold mt-0.5">•</span>
-                                        <span>
-                                            <strong class="font-semibold text-stone-800"><span
-                                                    class="lang-sv">Laddningstider:</span><span class="lang-en">Loading
-                                                    times:</span></strong>
-                                            <span class="lang-sv">Eftersom vissa applikationer använder gratisversioner
-                                                av molnservrar (s.k. "free tiers") kan det ta 30–60 sekunder för en app
-                                                att "vakna" första gången du besöker den om ingen varit där på ett tag.
-                                                Ha tålamod vid första klicket!</span>
-                                            <span class="lang-en">Because some applications use free-tier cloud servers,
-                                                it may take 30–60 seconds for an app to "wake up" the first time you
-                                                visit if it hasn't been active recently. Please be patient on the first
-                                                click!</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex gap-2">
-                                        <span class="text-nordic-navy font-bold mt-0.5">•</span>
-                                        <span>
-                                            <strong class="font-semibold text-stone-800"><span class="lang-sv">Öppen
-                                                    källkod:</span><span class="lang-en">Open Source:</span></strong>
-                                            <span class="lang-sv">Den bakomliggande koden till alla projekt finns
-                                                publicerad på min GitHub-sida (länken uppe till höger). Vem som helst
-                                                kan granska eller ladda ner koden.</span>
-                                            <span class="lang-en">The underlying code for all projects is openly
-                                                published on my GitHub page (link top right). Anyone can review or
-                                                download the code.</span>
-                                    </li>
-                                </ul>
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
+                                    <span class="lang-sv">En legal tech-webbapplikation som automatiserar preliminär
+                                        europeisk patent due diligence vid M&A-transaktioner, komplett med ett
+                                        interaktivt rekryterardemo. Vid skarpa granskningar görs sökningar mot det
+                                        officiella EPO OPS v3.2 API:et via en server-side OAuth2-proxy för att
+                                        kontrollera ägarförhållanden, årsavgifter, invändningar, enhetspatentstatus
+                                        (Unitary Patent) samt risk för patentutgång. Applikationen genererar
+                                        patentdossierer med utkast till SPA-klausuler, CSV-exporter för bilagor och en
+                                        utskriftsklar due diligence-promemoria.</span>
+                                    <span class="lang-en">A legal-tech web app that automates preliminary European
+                                        patent due diligence for M&A transactions, complete with an interactive
+                                        recruiter demo. For live audits, it queries the official EPO OPS v3.2 API via a
+                                        server-side OAuth2 proxy to check ownership, renewal standing, oppositions,
+                                        Unitary Patent status, and expiry risk. The app outputs patent dossiers with
+                                        draft SPA clauses, Schedule CSV exports, and a print-ready due diligence
+                                        memo.</span>
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">EPO
+                                        OPS v3.2 API</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">OAuth2
+                                        Proxy</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Unitary
+                                        Patent & Opt-Out</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">SPA
+                                        Clause Drafting</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Vercel
+                                        Cloud</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://vanguard-ip-audit.vercel.app/" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna applikation & demo ↗</span><span
+                                            class="lang-en">Launch App & Recruiter Demo ↗</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Kategori: Juridik (Legal) -->
-                    <div>
-                        <h3
-                            class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3 border-b border-stone-200/80 pb-1.5">
-                            <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                            <!-- M&A Due Diligence Automation -->
-                            <div class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
+                    <!-- 2. EasyClause (Legal - RECOMMENDED) -->
+                    <div id="item-proj-easyclause" class="project-list-card group cursor-pointer" data-category="legal"
+                        onclick="toggleProjectAccordion('proj-easyclause')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
                                     <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5 leading-snug">
-                                        <a href="https://github.com/AStengard/M-A-Due-Diligence-Engine" target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="hover:underline flex items-center gap-1.5 text-stone-900 group-hover:text-nordic-navy">
-                                            <span>M&A Due Diligence Engine</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="2.2" stroke="currentColor"
-                                                class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                            </svg>
-                                        </a>
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
+                                        EasyClause
                                     </h4>
+                                    <!-- Recommended Badge -->
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-nordic-navy bg-nordic-navy/5 border border-nordic-navy/15 px-2 py-0.5 rounded shrink-0">Legal
+                                        class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-[#EEF4F0] text-[#285A3C] border border-[#CCE0D3] shadow-2xs">
+                                        <svg class="w-3.5 h-3.5 fill-[#285A3C]" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="lang-sv">Rekommenderad</span><span
+                                            class="lang-en">Recommended</span>
+                                    </span>
+                                    <!-- Category Badge -->
+                                    <span
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-nordic-navy bg-nordic-navy/10 border border-nordic-navy/25 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
                                     </span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed mb-2.5">
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">AI-avtalsgranskning på klarspråk för icke-jurister •
+                                        Rollbaserad riskanalys & register</span>
+                                    <span class="lang-en">AI Contract Review in Plain Language for Non-Lawyers •
+                                        Role-Based Risk Analysis & Registry</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://astengard.github.io/EasyClause/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna app</span><span class="lang-en">Open app</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-easyclause" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-easyclause"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
+                                    <span class="lang-sv">En AI-driven legal tech-webbapplikation särskilt utvecklad för
+                                        icke-jurister som annars har svårt att navigera svårtolkad avtalstext och
+                                        snåriga klausuler. Plattformen bryter ner avtalet i klickbara klausuler så att
+                                        användaren enkelt kan bläddra mellan sektionerna och förstå vad de innebär på
+                                        klarspråk, identifierar potentiella risker och skyldigheter anpassade efter
+                                        användarens specifika roll (t.ex. köpare, leverantör eller konsult) samt
+                                        erbjuder ett interaktivt register för att spara och överblicka ingångna
+                                        avtal.</span>
+                                    <span class="lang-en">An AI-powered legal-tech web application specifically designed
+                                        for non-lawyers who find complex contract language and dense clauses difficult
+                                        to decipher. The platform breaks contracts down into clickable,
+                                        clause-by-clause sections with simplified plain-language summaries,
+                                        highlights potential risks and obligations tailored to the user's
+                                        specific commercial role (e.g. buyer, vendor, or consultant), and includes an
+                                        interactive registry to organise and track commitments.</span>
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">AI
+                                        / LLM Parsing</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200"><span
+                                            class="lang-sv">Klarspråk för icke-jurister</span><span
+                                            class="lang-en">Plain Language for Non-Lawyers</span></span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Role-Specific
+                                        View</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Contract
+                                        Registry</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://astengard.github.io/EasyClause/" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna EasyClause ↗</span><span class="lang-en">Launch
+                                            EasyClause ↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. M&A Due Diligence Engine (Legal) -->
+                    <div id="item-proj-ma-engine" class="project-list-card group cursor-pointer" data-category="legal"
+                        onclick="toggleProjectAccordion('proj-ma-engine')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <h4
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
+                                        M&A Due Diligence Engine
+                                    </h4>
+                                    <!-- Category Badge -->
+                                    <span
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-nordic-navy bg-nordic-navy/10 border border-nordic-navy/25 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Lokal pipeline för avtalsanalys • Change of Control,
+                                        CP-scheman & riskmatris</span>
+                                    <span class="lang-en">Local Contract Intelligence Pipeline • Change of Control, CP
+                                        Schedules & Risk Matrix</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="reports/due_diligence_dashboard.html" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-all shadow-xs">
+                                    <span class="lang-sv">Dashboard</span><span class="lang-en">Dashboard</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-ma-engine" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-ma-engine"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
                                     <span class="lang-sv">Automatiserat M&A-flöde som granskar kommersiella avtal (PDF)
                                         från en lokal mapp. Klausuler identifieras och poängsätts för att flagga
                                         transaktionsblockerare (Change of Control, överlåtelseförbud och
                                         konkurrensklausuler) samt generera CP-scheman och riskmatriser. Länkarna nedan
-                                        visar beslutsunderlag (dashboard och PDF-rapport) framtagna genom en
-                                        fiktiv transaktion (<em>"Project Titan"</em>).</span>
+                                        visar beslutsunderlag (dashboard och PDF-rapport) framtagna genom en fiktiv
+                                        transaktion (<em>"Project Titan"</em>).</span>
                                     <span class="lang-en">Automated M&A workflow that reviews commercial agreements
                                         (PDFs) from a local folder. Clauses are identified and scored to flag
                                         deal-breakers (Change of Control, anti-assignment, and non-compete clauses) and
@@ -1949,80 +2288,104 @@
                                         decision-support materials (a dashboard and a PDF report) produced through a
                                         fictitious transaction (<em>"Project Titan"</em>).</span>
                                 </p>
-                                <div class="flex flex-wrap gap-2 pt-2 border-t border-stone-200/60 text-xs">
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">On-Premise
+                                        CLI</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Change
+                                        of Control</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">CP
+                                        Schedules</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Strict
+                                        Confidentiality</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
                                     <a href="reports/due_diligence_dashboard.html" target="_blank"
                                         rel="noopener noreferrer"
-                                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-nordic-navy/5 hover:bg-nordic-navy text-nordic-navy hover:text-white font-medium transition-colors text-[11.5px]">
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                            stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
                                         </svg>
-                                        <span class="lang-sv">Interaktiv Dashboard</span><span class="lang-en">Live
-                                            Dashboard</span>
+                                        <span class="lang-sv">Interaktiv Dashboard ↗</span><span class="lang-en">Live
+                                            Dashboard ↗</span>
                                     </a>
                                     <a href="reports/due_diligence_report.pdf" target="_blank" rel="noopener noreferrer"
-                                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 font-medium transition-colors text-[11.5px]">
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                            stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                                         </svg>
-                                        <span class="lang-sv">PDF-rapport</span><span class="lang-en">PDF Report</span>
+                                        <span class="lang-sv">PDF-rapport ↗</span><span class="lang-en">PDF Report
+                                            ↗</span>
+                                    </a>
+                                    <a href="https://github.com/AStengard/M-A-Due-Diligence-Engine" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                        </svg>
+                                        <span>GitHub ↗</span>
                                     </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- EasyClause -->
-                            <a href="https://astengard.github.io/EasyClause/" target="_blank" rel="noopener noreferrer"
-                                draggable="false" class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
+                    <!-- 4. Meeting Minutes Pro (Legal) -->
+                    <div id="item-proj-minutes" class="project-list-card group cursor-pointer" data-category="legal"
+                        onclick="toggleProjectAccordion('proj-minutes')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
                                     <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5">
-                                        EasyClause
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
-                                    </h4>
-                                    <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-nordic-navy bg-nordic-navy/5 border border-nordic-navy/15 px-2 py-0.5 rounded">Legal</span>
-                                </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
-                                    <span class="lang-sv">En AI-driven plattform som automatiskt granskar avtal och
-                                        bryter ner komplexa klausuler till lättförståeliga sammanfattningar och belyser
-                                        potentiella risker utifrån användarens specifika roll. Inkluderar ett
-                                        interaktivt register för att spara avtal.</span>
-                                    <span class="lang-en">An AI-powered platform that automatically reviews contracts,
-                                        breaks down complex clauses into clear summaries, and highlights potential risks
-                                        based on the user's specific role. Includes an interactive registry for saving
-                                        contracts.</span>
-                                </p>
-                            </a>
-
-                            <!-- Meeting Minutes Pro -->
-                            <a href="https://astengard.github.io/MeetingMinutesPro/" target="_blank"
-                                rel="noopener noreferrer" draggable="false"
-                                class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
-                                    <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5">
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
                                         Meeting Minutes Pro
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
                                     </h4>
+                                    <!-- Category Badge -->
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-nordic-navy bg-nordic-navy/5 border border-nordic-navy/15 px-2 py-0.5 rounded">Legal</span>
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-nordic-navy bg-nordic-navy/10 border border-nordic-navy/25 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
+                                    </span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Digital protokollföring och formalia för styrelser &
+                                        föreningar</span>
+                                    <span class="lang-en">Corporate Governance, Board Resolutions & Formalia
+                                        Management</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://astengard.github.io/MeetingMinutesPro/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna app</span><span class="lang-en">Open app</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-minutes" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-minutes"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
                                     <span class="lang-sv">En modern och användarvänlig webbapplikation som förenklar
                                         processen att skriva, hantera och spara styrelseprotokoll för exempelvis
                                         företag, föreningar och andra organisationer.</span>
@@ -2030,27 +2393,78 @@
                                         drafting, managing, and archiving board minutes for companies, non-profit
                                         associations and other organisations.</span>
                                 </p>
-                            </a>
-
-                            <!-- Swedish Inheritance Calculator -->
-                            <a href="https://astengard.github.io/Swedish-Inheritance-Calculator/" target="_blank"
-                                rel="noopener noreferrer" draggable="false"
-                                class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
-                                    <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5 leading-snug">
-                                        <span>Swedish Inheritance Calculator</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
-                                    </h4>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-nordic-navy bg-nordic-navy/5 border border-nordic-navy/15 px-2 py-0.5 rounded shrink-0">Legal</span>
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Corporate
+                                        Governance</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Board
+                                        Formalia</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Statutory
+                                        Resolutions</span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://astengard.github.io/MeetingMinutesPro/" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna Meeting Minutes Pro ↗</span><span
+                                            class="lang-en">Launch Meeting Minutes Pro ↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Swedish Inheritance Calculator (Legal) -->
+                    <div id="item-proj-inheritance" class="project-list-card group cursor-pointer" data-category="legal"
+                        onclick="toggleProjectAccordion('proj-inheritance')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <h4
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
+                                        Swedish Inheritance Calculator
+                                    </h4>
+                                    <!-- Category Badge -->
+                                    <span
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-nordic-navy bg-nordic-navy/10 border border-nordic-navy/25 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Juridik</span><span class="lang-en">Legal</span>
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Beräkning av arvslotter, laglotter och giftorättsgods enligt
+                                        Ärvdabalken</span>
+                                    <span class="lang-en">Statutory Inheritance Quota & Estate Distribution
+                                        Engine</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://astengard.github.io/Swedish-Inheritance-Calculator/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna kalkylator</span><span class="lang-en">Open tool</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-inheritance" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-inheritance"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
                                     <span class="lang-sv">En webbapplikation som beräknar arvskifte enligt Ärvdabalken.
                                         Guidar användaren genom familjestrukturer, testamenten och regler kring
                                         giftorättsgods.</span>
@@ -2058,36 +2472,83 @@
                                         the Swedish Inheritance Code. Guides the user through family structures, wills,
                                         and marital property rules.</span>
                                 </p>
-                            </a>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Ärvdabalken</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Arvskifte</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Laglott
+                                        & Fri förfoganderätt</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://astengard.github.io/Swedish-Inheritance-Calculator/"
+                                        target="_blank" rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-nordic-navy text-white text-xs font-semibold hover:bg-nordic-navyLight transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna Inheritance Calculator ↗</span><span
+                                            class="lang-en">Launch Inheritance Calculator ↗</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Kategori: Övrigt (Other) -->
-                    <div>
-                        <h3
-                            class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3 border-b border-stone-200/80 pb-1.5">
-                            <span class="lang-sv">Övrigt</span><span class="lang-en">Other</span>
+                    <!-- Kategori-rubrik: Övrigt -->
+                    <div class="project-cat-header flex items-center justify-between pt-5 pb-2 mb-2 border-b-2 border-stone-300"
+                        data-cat="other">
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-stone-800 tracking-tight">
+                            <span class="lang-sv">Övriga Projekt</span><span class="lang-en">Other Projects</span>
                         </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                            <!-- Bike Commuter's Guide -->
-                            <a href="https://astengard.github.io/Bike-Commuters-Guide/" target="_blank"
-                                rel="noopener noreferrer" draggable="false"
-                                class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
+                    </div>
+
+                    <!-- 6. Bike Commuter's Guide (Other) -->
+                    <div id="item-proj-bike" class="project-list-card group cursor-pointer" data-category="other"
+                        onclick="toggleProjectAccordion('proj-bike')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
                                     <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5">
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
                                         Bike Commuter's Guide
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
                                     </h4>
+                                    <!-- Category Badge -->
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-stone-600 bg-stone-200/60 border border-stone-300/80 px-2 py-0.5 rounded shrink-0">Other</span>
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-stone-800 bg-stone-200 border border-stone-300 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Övrigt</span><span class="lang-en">Other</span>
+                                    </span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Väderanalys längs cykelrutter med SMHI & OpenStreetMap</span>
+                                    <span class="lang-en">Real-Time Route Weather Analytics & Commuter Gear
+                                        Recommendations</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://astengard.github.io/Bike-Commuters-Guide/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 text-white text-xs font-semibold hover:bg-stone-900 transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna app</span><span class="lang-en">Open app</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-bike" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-bike"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
                                     <span class="lang-sv">En webbapplikation som analyserar väderförhållanden längs
                                         valfria cykelrutter med hjälp av realtidsdata från SMHI och OpenStreetMap för
                                         att ge skräddarsydda kläd- och däckrekommendationer.</span>
@@ -2095,27 +2556,77 @@
                                         custom cycling routes using real-time data from SMHI and OpenStreetMap to
                                         provide tailored clothing and tire recommendations.</span>
                                 </p>
-                            </a>
-
-                            <!-- World Watches -->
-                            <a href="https://astengard.github.io/WorldWatches/" target="_blank"
-                                rel="noopener noreferrer" draggable="false"
-                                class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
-                                    <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5">
-                                        World Watches
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
-                                    </h4>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-stone-600 bg-stone-200/60 border border-stone-300/80 px-2 py-0.5 rounded shrink-0">Other</span>
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">SMHI
+                                        API</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">OpenStreetMap</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Weather
+                                        Analytics</span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://astengard.github.io/Bike-Commuters-Guide/" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-stone-800 text-white text-xs font-semibold hover:bg-stone-900 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna Bike Commuter's Guide ↗</span><span
+                                            class="lang-en">Launch Bike Commuter's Guide ↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. World Watches (Other) -->
+                    <div id="item-proj-watches" class="project-list-card group cursor-pointer" data-category="other"
+                        onclick="toggleProjectAccordion('proj-watches')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <h4
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
+                                        World Watches
+                                    </h4>
+                                    <!-- Category Badge -->
+                                    <span
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-stone-800 bg-stone-200 border border-stone-300 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Övrigt</span><span class="lang-en">Other</span>
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Global tids- och marknadssynk över ledande
+                                        finanscentrum</span>
+                                    <span class="lang-en">Global Financial Market Trading Hours & Timezone
+                                        Synchronization</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://astengard.github.io/WorldWatches/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 text-white text-xs font-semibold hover:bg-stone-900 transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna app</span><span class="lang-en">Open app</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-watches" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-watches"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
                                     <span class="lang-sv">En enkel webbapplikation för världsklockor. Innehåller olika
                                         klocktyper och låter användaren söka bland globala tidszoner, beräkna
                                         tidsskillnader i realtid och anpassa sin instrumentpanel.</span>
@@ -2123,27 +2634,78 @@
                                         styles, global time zone search, real-time time difference calculations, and a
                                         customizable dashboard.</span>
                                 </p>
-                            </a>
-
-                            <!-- Morgonpendeln -->
-                            <a href="https://astengard.github.io/Morgonpendeln/" target="_blank"
-                                rel="noopener noreferrer" draggable="false"
-                                class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
-                                    <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5">
-                                        Morgonpendeln
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
-                                    </h4>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-stone-600 bg-stone-200/60 border border-stone-300/80 px-2 py-0.5 rounded shrink-0">Other</span>
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Global
+                                        Financial Windows</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Trading
+                                        Sessions</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Timezone
+                                        Offsets</span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://astengard.github.io/WorldWatches/" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-stone-800 text-white text-xs font-semibold hover:bg-stone-900 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna World Watches ↗</span><span class="lang-en">Launch
+                                            World Watches ↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Morgonpendeln (Other) -->
+                    <div id="item-proj-pendel" class="project-list-card group cursor-pointer" data-category="other"
+                        onclick="toggleProjectAccordion('proj-pendel')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <h4
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
+                                        Morgonpendeln
+                                    </h4>
+                                    <!-- Category Badge -->
+                                    <span
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-stone-800 bg-stone-200 border border-stone-300 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Övrigt</span><span class="lang-en">Other</span>
+                                    </span>
+                                </div>
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Realtidsdata för tågpendlare via Trafikverkets API med
+                                        förseningsbevis</span>
+                                    <span class="lang-en">Commuter Intelligence & Automated Proof of Delay via Swedish
+                                        Transport API</span>
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://astengard.github.io/Morgonpendeln/" target="_blank"
+                                    rel="noopener noreferrer" onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 text-white text-xs font-semibold hover:bg-stone-900 transition-all shadow-xs">
+                                    <span class="lang-sv">Öppna app</span><span class="lang-en">Open app</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-pendel" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-pendel"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
                                     <span class="lang-sv">En mobilanpassad applikation för pendlare mellan Uppsala och
                                         Stockholm som ger en skräddarsydd morgonkoll med realtidsdata från Trafikverkets
                                         öppna API. Den bevakar förseningar, inställda avgångar och spårändringar över
@@ -2155,41 +2717,116 @@
                                         and track changes across all operators, and generates timestamped proof for
                                         delayed trains.</span>
                                 </p>
-                            </a>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Trafikverket
+                                        Open API</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Delay
+                                        Certificate Generator</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Live
+                                        Train Tracking</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://astengard.github.io/Morgonpendeln/" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-stone-800 text-white text-xs font-semibold hover:bg-stone-900 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Öppna Morgonpendeln ↗</span><span class="lang-en">Launch
+                                            Morgonpendeln ↗</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Kategori: Spel (Games) -->
-                    <div>
-                        <h3
-                            class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3 border-b border-stone-200/80 pb-1.5">
-                            <span class="lang-sv">Spel</span><span class="lang-en">Games</span>
+                    <!-- Kategori-rubrik: Spel -->
+                    <div class="project-cat-header flex items-center justify-between pt-5 pb-2 mb-2 border-b-2 border-emerald-300"
+                        data-cat="games">
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-emerald-950 tracking-tight">
+                            <span class="lang-sv">Spel & Experiment</span><span class="lang-en">Games &
+                                Experiments</span>
                         </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                            <!-- Sveadle -->
-                            <a href="https://sveadle.streamlit.app/" target="_blank" rel="noopener noreferrer"
-                                draggable="false" class="interactive-card block p-4 group relative z-20">
-                                <div class="flex justify-between items-start gap-2 mb-1.5">
+                    </div>
+
+                    <!-- 9. Sveadle (Games) -->
+                    <div id="item-proj-sveadle" class="project-list-card group cursor-pointer" data-category="games"
+                        onclick="toggleProjectAccordion('proj-sveadle')">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
                                     <h4
-                                        class="font-bold text-stone-900 text-base group-hover:text-nordic-navy transition-colors flex items-center gap-1.5">
+                                        class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 group-hover:text-nordic-navy transition-colors">
                                         Sveadle
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2.2" stroke="currentColor"
-                                            class="w-3.5 h-3.5 text-stone-400 group-hover:text-nordic-navy group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                        </svg>
                                     </h4>
+                                    <!-- Category Badge -->
                                     <span
-                                        class="font-mono text-[10px] uppercase tracking-wider font-semibold text-emerald-900 bg-emerald-900/10 border border-emerald-900/20 px-2 py-0.5 rounded">Games</span>
+                                        class="font-mono text-[11px] uppercase tracking-wider font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-md shadow-2xs">
+                                        <span class="lang-sv">Spel</span><span class="lang-en">Games</span>
+                                    </span>
                                 </div>
-                                <p class="text-[13.5px] text-stone-600 leading-relaxed">
-                                    <span class="lang-sv">Ett webbaserat gissningsspel med svenska städer, inspirerat av
-                                        det klassiska spelet Wordle.</span>
-                                    <span class="lang-en">A web-based guessing game featuring Swedish cities, inspired
-                                        by the classic game Wordle.</span>
+                                <p class="text-xs font-mono text-stone-500 line-clamp-1">
+                                    <span class="lang-sv">Webbaserat geografiskt gissningsspel med svenska städer &
+                                        kommuner</span>
+                                    <span class="lang-en">Algorithmic Geography Deduction Game for Swedish
+                                        Municipalities</span>
                                 </p>
-                            </a>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <a href="https://sveadle.streamlit.app/" target="_blank" rel="noopener noreferrer"
+                                    onclick="event.stopPropagation();"
+                                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-800 text-white text-xs font-semibold hover:bg-emerald-900 transition-all shadow-xs">
+                                    <span class="lang-sv">Spela</span><span class="lang-en">Play</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </a>
+                                <svg id="icon-proj-sveadle" xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-stone-400 group-hover:text-nordic-navy transition-transform duration-300 shrink-0"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="content-proj-sveadle"
+                            class="project-accordion overflow-hidden transition-all duration-300 ease-in-out"
+                            style="max-height: 0px;">
+                            <div class="border-t border-stone-200/70 pt-3.5 mt-3">
+                                <p class="text-stone-600 text-[13.5px] leading-relaxed mb-3.5">
+                                    <span class="lang-sv">Ett webbaserat gissningsspel med svenska städer, inspirerat av
+                                        det klassiska spelet Wordle. Byggt i Python och driftsatt på Streamlit Cloud med
+                                        algoritmiska avståndsberäkningar.</span>
+                                    <span class="lang-en">A web-based guessing game featuring Swedish cities, inspired
+                                        by the classic game Wordle. Built in Python and deployed on Streamlit Cloud with
+                                        algorithmic distance calculations.</span>
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-3.5 text-[11px] font-mono">
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Python</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Streamlit
+                                        Cloud</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-stone-100 text-stone-700 rounded border border-stone-200">Algorithmic
+                                        Deduction</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-1 border-t border-stone-200/50">
+                                    <a href="https://sveadle.streamlit.app/" target="_blank" rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-emerald-800 text-white text-xs font-semibold hover:bg-emerald-900 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <span class="lang-sv">Spela Sveadle ↗</span><span class="lang-en">Play Sveadle
+                                            ↗</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -2238,8 +2875,7 @@
                     <div class="flex flex-col gap-3">
                         <!-- E-post (Monteras dynamiskt i JS för att döljas från GitHub-källkod och bot-skrapning) -->
                         <div class="interactive-card flex items-center justify-between gap-4 p-3.5">
-                            <a id="contact-email-link" href="#"
-                                class="flex items-center gap-3.5 min-w-0 flex-1 group"
+                            <a id="contact-email-link" href="#" class="flex items-center gap-3.5 min-w-0 flex-1 group"
                                 title="Skicka e-post / Send email">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-nordic-navy/10 flex items-center justify-center text-nordic-navy shrink-0 group-hover:bg-nordic-navy group-hover:text-white transition-colors">
@@ -2759,6 +3395,16 @@
                     el.style.maxHeight = el.scrollHeight + 'px';
                 }
             });
+
+            // Justera höjd på öppna projektdragspel och uppdatera projektknapp
+            if (typeof updateToggleAllProjectsButton === 'function') {
+                updateToggleAllProjectsButton();
+            }
+            document.querySelectorAll('.project-accordion').forEach(el => {
+                if (el.style.maxHeight && el.style.maxHeight !== '0px') {
+                    el.style.maxHeight = el.scrollHeight + 'px';
+                }
+            });
         }
 
         // Avbryt eventuell pågående kamerarörelse mjukt
@@ -2969,8 +3615,37 @@
         window.addEventListener('touchend', onDragEnd);
 
         // Tangentbordsnavigering för enkel bläddring (Piltangenter + Escape)
+        // Modal-funktioner för "Bra att veta om mina projekt"
+        function openProjectsInfoModal() {
+            const modal = document.getElementById('projects-info-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeProjectsInfoModal() {
+            const modal = document.getElementById('projects-info-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function handleModalBackdropClick(e) {
+            if (e.target.id === 'projects-info-modal') {
+                closeProjectsInfoModal();
+            }
+        }
+
+        // Tangentbordsnavigering för enkel bläddring (Piltangenter + Escape)
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                const modal = document.getElementById('projects-info-modal');
+                if (modal && !modal.classList.contains('hidden')) {
+                    closeProjectsInfoModal();
+                    return;
+                }
                 navigateToDirect('start');
             } else if (e.key === 'ArrowRight') {
                 const idx = stationOrder.indexOf(activeStationId);
@@ -3028,7 +3703,7 @@
         function toggleAllAccordions() {
             const accordions = document.querySelectorAll('.exp-accordion');
             const anyClosed = Array.from(accordions).some(el => !el.style.maxHeight || el.style.maxHeight === '0px');
-            const ids = ['exp1', 'exp2', 'exp3', 'exp4', 'exp5', 'exp6', 'exp-summer', 'exp-volunteer', 'edu-law', 'edu-econ', 'info-projects'];
+            const ids = ['exp1', 'exp2', 'exp3', 'exp4', 'exp5', 'exp6', 'exp-summer', 'exp-volunteer', 'edu-law', 'edu-econ'];
 
             ids.forEach(id => {
                 const content = document.getElementById(`content-${id}`);
@@ -3055,6 +3730,123 @@
             if (!btn) return;
             const accordions = document.querySelectorAll('.exp-accordion');
             const anyClosed = Array.from(accordions).some(el => !el.style.maxHeight || el.style.maxHeight === '0px');
+            if (currentLang === 'en') {
+                btn.textContent = anyClosed ? 'Expand all' : 'Collapse all';
+            } else {
+                btn.textContent = anyClosed ? 'Expandera alla' : 'Minimera alla';
+            }
+        }
+
+        // Hantera kategori-filtrering och dragspel för Utvalda Projekt
+        let currentProjectCategory = 'all';
+
+        function filterProjects(cat) {
+            currentProjectCategory = cat;
+
+            // Uppdatera kategori-knapparnas stil
+            const catKeys = ['all', 'legal', 'other', 'games'];
+            catKeys.forEach(k => {
+                const btn = document.getElementById(`cat-btn-${k}`);
+                if (!btn) return;
+                const isActive = (k === cat);
+                if (isActive) {
+                    btn.className = 'project-cat-btn px-4 sm:px-4.5 py-2 rounded-lg text-sm font-bold transition-all bg-nordic-navy text-white shadow-xs flex items-center gap-2.5 ring-2 ring-nordic-navy/30';
+                    const countEl = btn.querySelector('.cat-count');
+                    if (countEl) countEl.className = 'cat-count font-mono text-xs font-bold bg-white/25 text-white px-2 py-0.5 rounded-full';
+                } else {
+                    btn.className = 'project-cat-btn px-4 sm:px-4.5 py-2 rounded-lg text-sm font-bold transition-all bg-white text-stone-800 hover:text-nordic-navy hover:bg-stone-50 border border-stone-300 shadow-2xs flex items-center gap-2.5';
+                    const countEl = btn.querySelector('.cat-count');
+                    if (countEl) countEl.className = 'cat-count font-mono text-xs font-bold bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full border border-stone-200';
+                }
+            });
+
+            // Visa/dölj projektkort baserat på kategori
+            document.querySelectorAll('.project-list-card').forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (cat === 'all' || cardCat === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Visa relevant kategori-rubrik: i 'all'-läget visas alla, annars visas aktuell kategoris rubrik
+            document.querySelectorAll('.project-cat-header').forEach(hdr => {
+                const hdrCat = hdr.getAttribute('data-cat');
+                if (cat === 'all' || cat === hdrCat) {
+                    hdr.style.display = 'flex';
+                } else {
+                    hdr.style.display = 'none';
+                }
+            });
+
+            // Justera höjd på eventuellt öppna dragspel
+            document.querySelectorAll('.project-accordion').forEach(el => {
+                if (el.style.maxHeight && el.style.maxHeight !== '0px') {
+                    el.style.maxHeight = el.scrollHeight + 'px';
+                }
+            });
+
+            updateToggleAllProjectsButton();
+        }
+
+        function toggleProjectAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            const item = document.getElementById(`item-${id}`);
+            if (!content || !icon) return;
+
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+                if (item) item.classList.remove('is-open');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+                if (item) item.classList.add('is-open');
+            }
+            updateToggleAllProjectsButton();
+        }
+
+        function toggleAllProjects() {
+            const visibleCards = Array.from(document.querySelectorAll('.project-list-card')).filter(card => card.style.display !== 'none');
+            const visibleIds = visibleCards.map(c => c.id.replace('item-', ''));
+
+            const anyClosed = visibleIds.some(id => {
+                const c = document.getElementById(`content-${id}`);
+                return !c || !c.style.maxHeight || c.style.maxHeight === '0px';
+            });
+
+            visibleIds.forEach(id => {
+                const content = document.getElementById(`content-${id}`);
+                const icon = document.getElementById(`icon-${id}`);
+                const item = document.getElementById(`item-${id}`);
+                if (!content || !icon) return;
+
+                if (anyClosed) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(180deg)';
+                    if (item) item.classList.add('is-open');
+                } else {
+                    content.style.maxHeight = '0px';
+                    icon.style.transform = 'rotate(0deg)';
+                    if (item) item.classList.remove('is-open');
+                }
+            });
+
+            updateToggleAllProjectsButton();
+        }
+
+        function updateToggleAllProjectsButton() {
+            const btn = document.getElementById('toggle-all-proj-btn');
+            if (!btn) return;
+            const visibleCards = Array.from(document.querySelectorAll('.project-list-card')).filter(card => card.style.display !== 'none');
+            const visibleIds = visibleCards.map(c => c.id.replace('item-', ''));
+            const anyClosed = visibleIds.some(id => {
+                const c = document.getElementById(`content-${id}`);
+                return !c || !c.style.maxHeight || c.style.maxHeight === '0px';
+            });
+
             if (currentLang === 'en') {
                 btn.textContent = anyClosed ? 'Expand all' : 'Collapse all';
             } else {
@@ -3111,6 +3903,10 @@
             drawConnections();
             centerOnElement('start', false);
             updateNavUI('start');
+
+            // Initiera projektsektionen med Alla projekt aktivt och alla projekt stängda som standard
+            filterProjects('all');
+            updateToggleAllProjectsButton();
         };
     </script>
 </body>
